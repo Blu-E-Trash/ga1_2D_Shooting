@@ -6,8 +6,10 @@ public class PlayerMove : MonoBehaviour
     // 목적: 키보드 입력에 따른 플레이어 이동 처리
 
     public float Speed = 5f; // 이동 속력
-
-
+    private float minX = -2.3f;
+    private float maxX = 2.3f;
+    private float minY = -4.68f;
+    private float maxY = 0f;
 
     // 매 프레임마다 실행
     // 초당 프레임 실행 횟수는 별다른 설정이 없으면 가능한 만큼 실행
@@ -25,31 +27,45 @@ public class PlayerMove : MonoBehaviour
 
         //Debug.Log($"{h}, {v}");
         //Debug.Log("왼쪽 방향키를 누르고 있습니다.");
+
+
+        if (Input.GetKey(KeyCode.E))
+        {
+             Speed += 1f*Time.deltaTime;
+        }
+        if (Input.GetKey(KeyCode.Q))
+        {
+            if(Speed > 0)
+            {
+                Speed -= 1f*Time.deltaTime;
+            }
+        }
+
         // 3. 방향과 속도에 따라 이동한다.
         // 속도 = 방향 * 속력          //매직넘버 : 보는 사람에 따라 의미가 달라질 수 있는 헷갈리는 숫자    
         //transform.Translate(direction * Speed * Time.deltaTime);
         // deltaTime : 이전 프레임이 끝나고 다음 프레임이 시작될 때까지 걸린 시간을 Ms로 반환
-        Vector2 normalizedSpeed = (direction * Speed).normalized;
+        Vector2 normalizedSpeed = direction.normalized * Speed;
 
         // 새로운 위치 = 현재 위치 + (방향 * 속력 * 시간)
         transform.position += (Vector3)(normalizedSpeed * Time.deltaTime);
 
 
-        if(transform.position.x < -2.3)
+        if(transform.position.x < minX)
         {
-            transform.position = new Vector2(2.3f, transform.position.y);
+            transform.position = new Vector2(maxX, transform.position.y);
         }
-        if(transform.position.x > 2.3)
+        if(transform.position.x > maxX)
         {
-            transform.position = new Vector2(-2.3f, transform.position.y);
+            transform.position = new Vector2(minX, transform.position.y);
         }
-        if(transform.position.y < -4.68)
+        if(transform.position.y < minY)
         {
-            transform.position = new Vector2(transform.position.x, -4.68f);
+            transform.position = new Vector2(transform.position.x, minY);
         }
-        if(transform.position.y > 0)
+        if(transform.position.y > maxY)
         {
-            transform.position = new Vector2(transform.position.x, 0);
+            transform.position = new Vector2(transform.position.x, maxY);
         }
     }
 }
