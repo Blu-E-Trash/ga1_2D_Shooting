@@ -572,6 +572,8 @@ MonoBehaviour:
   FirePointL: {fileID: 194098518}
   FirePointR: {fileID: 21104038}
   BulletPrefab: {fileID: 3591588799779360881, guid: 4b9fa77157836bd48b804b6552b0d5b7, type: 3}
+  SubBulletPrefab: {fileID: 3591588799779360881, guid: 23241892a7ecfbe46bd7a96a39df1ba9, type: 3}
+  isAutoFire: 0
   fireRate: 0.5
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

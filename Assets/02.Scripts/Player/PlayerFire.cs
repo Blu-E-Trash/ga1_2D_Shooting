@@ -5,6 +5,7 @@ public class PlayerFire : MonoBehaviour
     public Transform FirePointL;
     public Transform FirePointR;
     public GameObject BulletPrefab;
+    public GameObject SubBulletPrefab;
     public bool isAutoFire = false;
 
     public float fireRate = 0.5f; // 발사 속도 (초 단위)
@@ -37,9 +38,13 @@ public class PlayerFire : MonoBehaviour
     private void Fire()
     {            //Instantiate는 프리펩을 복사해서 게임 오브젝트를 생성하고 씬에 넣어주는 기능
         GameObject bulletL = Instantiate(BulletPrefab);
+        GameObject subBulletL = Instantiate(SubBulletPrefab);
         bulletL.transform.position = FirePointL.position;
+        subBulletL.transform.position = FirePointL.position;
 
         GameObject bulletR = Instantiate(BulletPrefab);
+        GameObject subBulletR = Instantiate(SubBulletPrefab);
         bulletR.transform.position = FirePointR.position;
+        subBulletR.transform.position = FirePointR.position;
     }
 }
