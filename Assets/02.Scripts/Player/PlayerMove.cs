@@ -15,8 +15,8 @@ public class PlayerMove : MonoBehaviour
     {
 
         // 1, 키보드 입력을 받는다.
-        float h = Input.GetAxis("Horizontal"); // 좌우 -1 ~ 1 사이의 값 반환
-        float v = Input.GetAxis("Vertical");   // 상하 -1 ~ 1 사이의 값 반환
+        float h = Input.GetAxisRaw("Horizontal"); // 좌우 -1 ~ 1 사이의 값 반환
+        float v = Input.GetAxisRaw("Vertical");   // 상하 -1 ~ 1 사이의 값 반환
 
         // 2. 키보드 입력에 따라 방향을 구한다.
         // 게임에는 벡터라는 타입이 있음. 벡터는 크기와 방향을 의미함.
@@ -29,8 +29,9 @@ public class PlayerMove : MonoBehaviour
         // 속도 = 방향 * 속력          //매직넘버 : 보는 사람에 따라 의미가 달라질 수 있는 헷갈리는 숫자    
         //transform.Translate(direction * Speed * Time.deltaTime);
         // deltaTime : 이전 프레임이 끝나고 다음 프레임이 시작될 때까지 걸린 시간을 Ms로 반환
+        Vector2 normalizedSpeed = (direction * Speed).normalized;
 
         // 새로운 위치 = 현재 위치 + (방향 * 속력 * 시간)
-        transform.position += (Vector3)(direction * Speed * Time.deltaTime);
+        transform.position += (Vector3)(normalizedSpeed * Time.deltaTime);
     }
 }
