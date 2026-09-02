@@ -37,11 +37,11 @@ public class PlayerMove : MonoBehaviour
 
         if(transform.position.x < -2.3)
         {
-            transform.position = new Vector2(-2.3f, transform.position.y);
+            transform.position = new Vector2(2.3f, transform.position.y);
         }
         if(transform.position.x > 2.3)
         {
-            transform.position = new Vector2(2.3f, transform.position.y);
+            transform.position = new Vector2(-2.3f, transform.position.y);
         }
         if(transform.position.y < -4.68)
         {
