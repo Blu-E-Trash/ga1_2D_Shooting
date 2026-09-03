@@ -6,7 +6,7 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        Vector2 direction = new Vector2(0, -1);
+        Vector2 direction = Vector2.down;
 
         Vector2 normalizedSpeed = direction.normalized * EnemySpeed;
 
