@@ -20,9 +20,9 @@ public class Bullet : MonoBehaviour
     {
         Destroy(this.gameObject);
 
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.TryGetComponent(out Enemy enemy))
         {
-            collision.gameObject.GetComponent<Enemy>().TakeDamage(BulletDamage);
+            enemy.TakeDamage(BulletDamage);
             Debug.Log("Enemy Destroyed");
         }
     }
