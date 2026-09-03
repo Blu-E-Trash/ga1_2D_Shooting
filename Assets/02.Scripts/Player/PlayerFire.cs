@@ -36,7 +36,8 @@ public class PlayerFire : MonoBehaviour
         }
     }
     private void Fire()
-    {            //Instantiate는 프리펩을 복사해서 게임 오브젝트를 생성하고 씬에 넣어주는 기능
+    {            
+        //Instantiate는 프리펩을 복사해서 게임 오브젝트를 생성하고 씬에 넣어주는 기능
         GameObject bulletL = Instantiate(BulletPrefab);
         GameObject subBulletL = Instantiate(SubBulletPrefab);
         bulletL.transform.position = FirePointL.position;
