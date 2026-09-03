@@ -16,11 +16,11 @@ public class Bullet : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         Destroy(this.gameObject);
 
-        if (collision.gameObject.TryGetComponent(out Enemy enemy))
+        if (other.gameObject.TryGetComponent(out Enemy enemy))
         {
             enemy.TakeDamage(BulletDamage);
             Debug.Log("Enemy Destroyed");
