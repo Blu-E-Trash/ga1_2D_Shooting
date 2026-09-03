@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class EnemtMove : MonoBehaviour
 {
     public int EnemySpeed = 5;
 
