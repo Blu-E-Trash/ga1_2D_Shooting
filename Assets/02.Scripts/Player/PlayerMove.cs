@@ -4,10 +4,10 @@ using UnityEngine.Animations;
 public class PlayerMove : MonoBehaviour
 {
     public float Speed = 5f;
-    private float minPosX = -2.3f;
-    private float maxPosX = 2.3f;
-    private float minPosY = -4.68f;
-    private float maxPosY = 0f;
+    private float _minPosX = -2.3f;
+    private float _maxPosX = 2.3f;
+    private float _minPosY = -4.68f;
+    private float _maxPosY = 0f;
 
     private void Update()
     {
@@ -27,21 +27,21 @@ public class PlayerMove : MonoBehaviour
         transform.position += (Vector3)(normalizedSpeed * Time.deltaTime);
 
 
-        if (transform.position.x < minPosX)
+        if (transform.position.x < _minPosX)
         {
-            transform.position = new Vector2(maxPosX, transform.position.y);
+            transform.position = new Vector2(_maxPosX, transform.position.y);
         }
-        if (transform.position.x > maxPosX)
+        if (transform.position.x > _maxPosX)
         {
-            transform.position = new Vector2(minPosX, transform.position.y);
+            transform.position = new Vector2(_minPosX, transform.position.y);
         }
-        if (transform.position.y < minPosY)
+        if (transform.position.y < _minPosY)
         {
-            transform.position = new Vector2(transform.position.x, minPosY);
+            transform.position = new Vector2(transform.position.x, _minPosY);
         }
-        if (transform.position.y > maxPosY)
+        if (transform.position.y > _maxPosY)
         {
-            transform.position = new Vector2(transform.position.x, maxPosY);
+            transform.position = new Vector2(transform.position.x, _maxPosY);
         }
     }
     private void SpeedChange()

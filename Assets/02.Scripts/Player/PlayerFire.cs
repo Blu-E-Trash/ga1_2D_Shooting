@@ -12,7 +12,7 @@ public class PlayerFire : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             isAutoFire = !isAutoFire;
         }
@@ -27,7 +27,7 @@ public class PlayerFire : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.Space))
         {
-            if(Time.time >= fireRate)
+            if (Time.time >= fireRate)
             {
                 Fire();
                 fireRate = Time.time + 0.5f;
@@ -36,7 +36,7 @@ public class PlayerFire : MonoBehaviour
         }
     }
     private void Fire()
-    {            
+    {
         //Instantiate는 프리펩을 복사해서 게임 오브젝트를 생성하고 씬에 넣어주는 기능
         GameObject bulletL = Instantiate(BulletPrefab);
         GameObject subBulletL = Instantiate(SubBulletPrefab);

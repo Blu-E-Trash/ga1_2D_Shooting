@@ -2,15 +2,14 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public float bulletSpeed = 20f;
-    
+    public float BulletSpeed = 20f;
     void Update()
     {
         Vector2 direction = Vector2.up;
 
-        transform.position += (Vector3) direction * bulletSpeed * Time.deltaTime;
+        transform.position += (Vector3)direction * BulletSpeed * Time.deltaTime;
 
-        if(transform.position.y > 6f)
+        if (transform.position.y > 6f)
         {
             Destroy(gameObject);
         }
