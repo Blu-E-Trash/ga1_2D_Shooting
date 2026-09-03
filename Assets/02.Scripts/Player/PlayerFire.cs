@@ -3,7 +3,9 @@ using UnityEngine;
 public class PlayerFire : MonoBehaviour
 {
     public Transform FirePointL;
+    public Transform SubFirePointL;
     public Transform FirePointR;
+    public Transform SubFirePointR;
     public GameObject BulletPrefab;
     public GameObject SubBulletPrefab;
     public bool isAutoFire = false;
@@ -41,11 +43,11 @@ public class PlayerFire : MonoBehaviour
         GameObject bulletL = Instantiate(BulletPrefab);
         GameObject subBulletL = Instantiate(SubBulletPrefab);
         bulletL.transform.position = FirePointL.position;
-        subBulletL.transform.position = FirePointL.position;
+        subBulletL.transform.position = SubFirePointL.position;
 
         GameObject bulletR = Instantiate(BulletPrefab);
         GameObject subBulletR = Instantiate(SubBulletPrefab);
         bulletR.transform.position = FirePointR.position;
-        subBulletR.transform.position = FirePointR.position;
+        subBulletR.transform.position = SubFirePointR.position;
     }
 }

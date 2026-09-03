@@ -2,7 +2,16 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    public float BulletDamage = 10f;
     public float BulletSpeed = 20f;
+    private void Start()
+    {
+        if (this.name == "SubBullet(Clone)")
+        {
+            BulletDamage = 5f;
+            BulletSpeed = 15f;
+        }
+    }
     void Update()
     {
         Vector2 direction = Vector2.up;
@@ -12,6 +21,16 @@ public class Bullet : MonoBehaviour
         if (transform.position.y > 6f)
         {
             Destroy(gameObject);
+        }
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Destroy(this.gameObject);
+
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            collision.gameObject.GetComponent<Enemy>().TakeDamage(BulletDamage);
+            Debug.Log("Enemy Destroyed");
         }
     }
 }
