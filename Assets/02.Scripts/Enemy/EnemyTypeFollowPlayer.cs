@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemyType2 : Enemy
+public class EnemyTypeFollowPlayer : Enemy
 {
     public GameObject Player;
     private void Start()
@@ -9,15 +9,15 @@ public class EnemyType2 : Enemy
     }
     private void Update()
     {
-        EnemyMove();
+        Move();
     }
 
-    override protected void EnemyMove()
+    override protected void Move()
     {
         Vector2 direction = Player.transform.position - transform.position;
-        Vector2 normalizedSpeed = direction.normalized * EnemySpeed;
+        Vector2 normalizedSpeed = direction.normalized * Speed;
         transform.position += (Vector3)(normalizedSpeed * Time.deltaTime);
-        if (transform.position.y < -5.5f)
+        if (transform.position.y < _minPosY)
         {
             Destroy(gameObject);
         }
