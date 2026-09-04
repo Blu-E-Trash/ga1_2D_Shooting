@@ -22,6 +22,8 @@ public class EnemySpawner : MonoBehaviour
         {
             SpawnEnemy();
 
+            _spawnInterval = Random.Range(1.0f, 3.0f); // 적 생성 간격을 랜덤하게 설정
+
             _timer = 0f;
         }
     }
