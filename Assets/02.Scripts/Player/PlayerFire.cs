@@ -9,8 +9,6 @@ public class PlayerFire : MonoBehaviour
     public GameObject BulletPrefab;
     public GameObject SubBulletPrefab;
     public bool isAutoFire = false;
-
-    public bool forTest = false;
     public float fireRate = 0.5f; // 발사 속도 (초 단위)
 
     private void Update()
