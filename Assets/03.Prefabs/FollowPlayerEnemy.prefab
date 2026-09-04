@@ -106,8 +106,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45a67e3f598ed0649b7f81f3464d9b03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyType2
-  EnemySpeed: 1
-  EnemyHealth: 100
+  Speed: 1
+  Health: 100
+  _damage: 20
   Player: {fileID: 0}
 --- !u!61 &2479270707492973479
 BoxCollider2D:
@@ -139,7 +140,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0

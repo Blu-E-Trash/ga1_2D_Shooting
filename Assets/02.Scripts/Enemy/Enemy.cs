@@ -5,6 +5,8 @@ abstract public class Enemy : MonoBehaviour
     public int Speed = 1;
     public float Health = 100f;
     protected float _minPosY = -5.5f;
+    [SerializeField]
+    protected float _damage = 10f;
 
     private void Update()
     {
@@ -27,6 +29,18 @@ abstract public class Enemy : MonoBehaviour
         {
             Destroy(gameObject);
             Debug.Log("Enemy Destroyed");
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            PlayerHealth playerHealth = collision.GetComponent<PlayerHealth>();
+            if (playerHealth != null)
+            {
+                playerHealth.TakeDamage(_damage);
+            }
+            Destroy(gameObject);
         }
     }
 }
