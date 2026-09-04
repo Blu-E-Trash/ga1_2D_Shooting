@@ -7,6 +7,8 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField]
     private GameObject[] _enemyPrefab;
 
+    private int[] _enemyPool = { 0, 0, 1, 1, 1, 2, 2, 2, 2, 2 };
+
     [Header("적 생성 간격")]
     private float _spawnInterval = 2.0f; // 적 생성 간격 (초 단위)
     private float _timer;
@@ -31,7 +33,11 @@ public class EnemySpawner : MonoBehaviour
     private void SpawnEnemy()
     {
         int randomSpawnPointIndex = Random.Range(0, _spawnPoints.Length);
-        int randomEnemyIndex = Random.Range(0, _enemyPrefab.Length);
-        Instantiate(_enemyPrefab[randomEnemyIndex], _spawnPoints[randomSpawnPointIndex].position, Quaternion.identity);
+
+        int randomPoolIndex = Random.Range(0, _enemyPool.Length);
+
+        int enemyIndexToSpawn = _enemyPool[randomPoolIndex];
+
+        Instantiate(_enemyPrefab[enemyIndexToSpawn], _spawnPoints[randomSpawnPointIndex].position, Quaternion.identity);
     }
 }
