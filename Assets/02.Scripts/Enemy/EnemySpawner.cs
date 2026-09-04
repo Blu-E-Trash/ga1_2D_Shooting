@@ -7,8 +7,6 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField]
     private GameObject[] _enemyPrefab;
 
-    private bool _forTest = false;
-
     private int[] _enemyPool = { 0, 0, 1, 1, 1, 2, 2, 2, 2, 2 };
 
     [Header("적 생성 간격")]
