@@ -17,9 +17,5 @@ public class EnemyTypeFollowPlayer : Enemy
         Vector2 direction = Player.transform.position - transform.position;
         Vector2 normalizedSpeed = direction.normalized * Speed;
         transform.position += (Vector3)(normalizedSpeed * Time.deltaTime);
-        if (transform.position.y < _minPosY)
-        {
-            Destroy(gameObject);
-        }
     }
 }

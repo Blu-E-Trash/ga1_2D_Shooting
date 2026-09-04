@@ -15,10 +15,5 @@ public class EnemyTypeDownToPlayer : Enemy
     {
         Vector2 normalizedSpeed = _moveDirection * Speed;
         transform.position += (Vector3)(normalizedSpeed * Time.deltaTime);
-
-        if (transform.position.y < _minPosY)
-        {
-            Destroy(gameObject);
-        }
     }
 }

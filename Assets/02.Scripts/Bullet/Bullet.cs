@@ -10,11 +10,6 @@ public class Bullet : MonoBehaviour
         Vector2 direction = Vector2.up;
 
         transform.position += (Vector3)direction * BulletSpeed * Time.deltaTime;
-
-        if (transform.position.y > 6f)
-        {
-            Destroy(gameObject);
-        }
     }
     private void OnTriggerEnter2D(Collider2D other)
     {

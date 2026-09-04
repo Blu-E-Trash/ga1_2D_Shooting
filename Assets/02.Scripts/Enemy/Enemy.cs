@@ -17,10 +17,6 @@ abstract public class Enemy : MonoBehaviour
         Vector2 direction = new Vector2(0, -1);
         Vector2 normalizedSpeed = direction.normalized * Speed;
         transform.position += (Vector3)(normalizedSpeed * Time.deltaTime);
-        if (transform.position.y < _minPosY)
-        {
-            Destroy(gameObject);
-        }
     }
     public void TakeDamage(float damage)
     {
