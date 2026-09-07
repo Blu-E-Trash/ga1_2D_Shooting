@@ -13,6 +13,13 @@ abstract public class Enemy : MonoBehaviour
     [SerializeField]
     private int _dropRate;
 
+    private Animator _animator;
+
+    private void Awake()
+    {
+        _animator = GetComponent<Animator>();
+    }
+
     private void Update()
     {
         Move();
@@ -25,6 +32,7 @@ abstract public class Enemy : MonoBehaviour
     }
     public void TakeDamage(float damage)
     {
+        _animator.SetTrigger("isHit");
         Health -= damage;
         if (Health <= 0)
         {
