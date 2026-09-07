@@ -114,7 +114,7 @@ MonoBehaviour:
   - {fileID: 4745435792981526040, guid: 26788a81f9d067c41b228b975c715dc6, type: 3}
   - {fileID: 8751296881173142447, guid: a2446fd79a51dbc48aafd9bbb8df1024, type: 3}
   _dropRate: 30
-  Player: {fileID: 5194570234576377915, guid: ca3a73419d6b3f848baa368906ebf3be, type: 3}
+  _player: {fileID: 5194570234576377915, guid: ca3a73419d6b3f848baa368906ebf3be, type: 3}
 --- !u!61 &2479270707492973479
 BoxCollider2D:
   m_ObjectHideFlags: 0
