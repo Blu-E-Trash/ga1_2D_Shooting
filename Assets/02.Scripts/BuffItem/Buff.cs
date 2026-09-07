@@ -4,9 +4,11 @@ public abstract class Buff : MonoBehaviour
 {
     GameObject player;
 
-    protected float Speed = 3f;
+    [SerializeField]
+    protected float Speed;
 
-    private float waitTime = 3f;
+    [SerializeField]
+    private float waitTime;
     private float timer = 0f;
     private void Awake()
     {

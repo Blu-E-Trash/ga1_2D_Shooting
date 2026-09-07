@@ -105,6 +105,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26c96d8fd9045d24a9a16e69c7a56e9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MoveSpeedBuff
+  Speed: 3
+  waitTime: 3
 --- !u!58 &8677689073044135033
 CircleCollider2D:
   m_ObjectHideFlags: 0

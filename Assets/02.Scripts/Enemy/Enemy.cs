@@ -10,6 +10,8 @@ abstract public class Enemy : MonoBehaviour
 
     [SerializeField]
     private GameObject[] _buffItem;
+    [SerializeField]
+    private int _dropRate;
 
     private void Update()
     {
@@ -53,7 +55,7 @@ abstract public class Enemy : MonoBehaviour
         if (_buffItem == null || _buffItem.Length == 0) return;
 
         int randomChance = Random.Range(0, 100);
-        if (randomChance < 30)
+        if (randomChance < _dropRate)
         {
             int index = Random.Range(0, _buffItem.Length);
 
