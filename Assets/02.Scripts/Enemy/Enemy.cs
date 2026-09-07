@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
 abstract public class Enemy : MonoBehaviour
 {
     public int Speed = 1;
