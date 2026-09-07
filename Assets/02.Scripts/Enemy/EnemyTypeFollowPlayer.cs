@@ -2,19 +2,15 @@ using UnityEngine;
 
 public class EnemyTypeFollowPlayer : Enemy
 {
-    public GameObject Player;
-
-    private void Start()
-    {
-        Player = FindAnyObjectByType<PlayerMove>().gameObject;
-    }
+    [SerializeField]
+    private GameObject Player;
 
     override protected void Move()
     {
         if (Player != null)
         {
             Vector2 direction = Player.transform.position - transform.position;
-            Vector2 normalizedSpeed = direction.normalized * Speed;
+            Vector2 normalizedSpeed = direction.normalized * _speed;
             transform.position += (Vector3)(normalizedSpeed * Time.deltaTime);
 
             Rotate(direction);

@@ -4,10 +4,11 @@ public class EnemyTypeDownToPlayer : Enemy
 {
     private Vector2 _moveDirection;
 
+    [SerializeField]
+    private GameObject player;
+
     private void Start()
     {
-        GameObject player = FindAnyObjectByType<PlayerMove>().gameObject;
-
         Vector2 direction = player.transform.position - this.transform.position;
         _moveDirection = direction.normalized;
 
@@ -16,7 +17,7 @@ public class EnemyTypeDownToPlayer : Enemy
 
     override protected void Move()
     {
-        Vector2 normalizedSpeed = _moveDirection * Speed;
+        Vector2 normalizedSpeed = _moveDirection * _speed;
         transform.position += (Vector3)(normalizedSpeed * Time.deltaTime);
     }
 
