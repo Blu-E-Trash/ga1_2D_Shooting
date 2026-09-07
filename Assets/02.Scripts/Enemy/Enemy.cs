@@ -18,12 +18,12 @@ abstract public class Enemy : MonoBehaviour
     private Animator _animator;
     private static readonly int IsHitHash = Animator.StringToHash("isHit");
 
-    private void Awake()
+    virtual protected void Awake()
     {
         _animator = GetComponent<Animator>();
     }
 
-    private void Update()
+    protected void Update()
     {
         Move();
     }

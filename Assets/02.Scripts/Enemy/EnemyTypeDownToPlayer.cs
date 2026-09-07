@@ -4,14 +4,14 @@ public class EnemyTypeDownToPlayer : Enemy
 {
     private Vector2 _moveDirection;
 
-    [SerializeField]
     private GameObject _player;
 
-    private void Awake()
+    override protected void Awake()
     {
+        base.Awake();
         if (_player == null)
         {
-            Debug.LogError($"{gameObject.name}에 Player가 할당되지 않았습니다.");
+            _player = GameObject.FindGameObjectWithTag("Player");
         }
     }
 
