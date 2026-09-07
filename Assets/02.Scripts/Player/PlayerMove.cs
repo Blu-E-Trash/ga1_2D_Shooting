@@ -7,6 +7,12 @@ public class PlayerMove : MonoBehaviour
     private float _maxPosX = 2.3f;
     private float _minPosY = -4.68f;
     private float _maxPosY = 0f;
+    private Animator _animator;
+
+    private void Awake()
+    {
+        _animator = GetComponent<Animator>();
+    }
 
     private void Update()
     {
@@ -16,15 +22,18 @@ public class PlayerMove : MonoBehaviour
 
     private void Move()
     {
-        float h = Input.GetAxisRaw("Horizontal"); // 좌우 -1 ~ 1 사이의 값 반환
-        float v = Input.GetAxisRaw("Vertical");   // 상하 -1 ~ 1 사이의 값 반환
+        float h = Input.GetAxisRaw("Horizontal"); // 좌우 -1, 0, 1 반환
+        float v = Input.GetAxisRaw("Vertical");
+
+        if (_animator != null)
+        {
+            _animator.SetInteger("x", (int)h);
+        }
 
         Vector2 direction = new Vector2(h, v);
-
         Vector2 normalizedSpeed = direction.normalized * Speed;
 
         transform.position += (Vector3)(normalizedSpeed * Time.deltaTime);
-
 
         if (transform.position.x < _minPosX)
         {
@@ -43,6 +52,7 @@ public class PlayerMove : MonoBehaviour
             transform.position = new Vector2(transform.position.x, _maxPosY);
         }
     }
+
     private void SpeedChange()
     {
         if (Input.GetKey(KeyCode.E))
@@ -57,10 +67,10 @@ public class PlayerMove : MonoBehaviour
             }
         }
     }
+
     public void SpeedBuff(float amount)
     {
         Speed += amount;
-
         Debug.Log($"이동속도 {amount}증가");
     }
 }
