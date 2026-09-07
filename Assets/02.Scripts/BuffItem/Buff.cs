@@ -33,6 +33,7 @@ public abstract class Buff : MonoBehaviour
 
     protected void Move()
     {
+        if (player == null) return;
         Vector2 direction = player.transform.position - transform.position;
         Vector2 normalizedSpeed = direction.normalized * Speed;
         transform.position += (Vector3)(normalizedSpeed * Time.deltaTime);
