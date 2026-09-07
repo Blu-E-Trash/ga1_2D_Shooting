@@ -20,4 +20,13 @@ public class PlayerHealth : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    public void Heal(float amount)
+    {
+        CurrentHealth += amount;
+        if (CurrentHealth > MaxHealth)
+        {
+            CurrentHealth = MaxHealth;
+        }
+        Debug.Log($"현재 체력 {CurrentHealth}");
+    }
 }

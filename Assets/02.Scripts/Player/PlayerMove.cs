@@ -57,4 +57,10 @@ public class PlayerMove : MonoBehaviour
             }
         }
     }
+    public void SpeedBuff(float amount)
+    {
+        Speed += amount;
+
+        Debug.Log($"이동속도 {amount}증가");
+    }
 }
