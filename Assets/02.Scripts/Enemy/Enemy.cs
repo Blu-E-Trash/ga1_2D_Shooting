@@ -15,6 +15,7 @@ abstract public class Enemy : MonoBehaviour
     private int _dropRate;
 
     private Animator _animator;
+    private static readonly int IsHitHash = Animator.StringToHash("isHit");
 
     private void Awake()
     {
@@ -33,7 +34,7 @@ abstract public class Enemy : MonoBehaviour
     }
     public void TakeDamage(float damage)
     {
-        _animator.SetTrigger("isHit");
+        _animator?.SetTrigger(IsHitHash);
         Health -= damage;
         if (Health <= 0)
         {
