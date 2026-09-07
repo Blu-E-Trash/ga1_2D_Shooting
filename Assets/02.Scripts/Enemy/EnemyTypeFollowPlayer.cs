@@ -3,13 +3,20 @@ using UnityEngine;
 public class EnemyTypeFollowPlayer : Enemy
 {
     [SerializeField]
-    private GameObject Player;
+    private GameObject _player;
 
+    private void Awake()
+    {
+        if (_player == null)
+        {
+            Debug.LogError($"{gameObject.name}에 Player가 할당되지 않았습니다.");
+        }
+    }
     override protected void Move()
     {
-        if (Player != null)
+        if (_player != null)
         {
-            Vector2 direction = Player.transform.position - transform.position;
+            Vector2 direction = _player.transform.position - transform.position;
             Vector2 normalizedSpeed = direction.normalized * _speed;
             transform.position += (Vector3)(normalizedSpeed * Time.deltaTime);
 
