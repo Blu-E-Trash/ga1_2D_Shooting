@@ -18,6 +18,10 @@ public class PlayerSkill : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            UseSkill();
+        }
         if (_isCoolTime)
         {
             _currentCoolTime += Time.deltaTime;

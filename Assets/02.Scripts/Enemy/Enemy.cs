@@ -46,12 +46,16 @@ abstract public class Enemy : MonoBehaviour
             Die();
         }
     }
-    public void Die()
+    private void Die()
     {
         Instantiate(_deathEffectPrefab, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
-
+    public void Kill()
+    {
+        TryDropItem();
+        Die();
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
@@ -64,7 +68,7 @@ abstract public class Enemy : MonoBehaviour
             Die();
         }
     }
-    public void TryDropItem()
+    private void TryDropItem()
     {
         if (_buffItem == null || _buffItem.Length == 0) return;
 

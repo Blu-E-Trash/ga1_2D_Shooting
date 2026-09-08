@@ -3,7 +3,7 @@ using UnityEngine;
 public class Boom : MonoBehaviour
 {
     private float _timer = 0;
-    private float _waitTime = 3;
+    private float _waitTime = 3f;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision != null)
@@ -11,8 +11,7 @@ public class Boom : MonoBehaviour
             if (collision.CompareTag("Enemy"))
             {
                 Enemy enemy = collision.GetComponent<Enemy>();
-                enemy.TryDropItem();
-                enemy.Die();
+                enemy.Kill();
             }
         }
     }
