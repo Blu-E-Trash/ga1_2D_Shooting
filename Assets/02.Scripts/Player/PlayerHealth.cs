@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
+    [SerializeField]
     private GameObject _deathEffect;
     private float MaxHealth = 100f;
     [SerializeField]

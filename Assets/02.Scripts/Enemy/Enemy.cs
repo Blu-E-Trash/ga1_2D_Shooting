@@ -42,8 +42,8 @@ abstract public class Enemy : MonoBehaviour
         _health -= damage;
         if (_health <= 0)
         {
-            Die();
             TryDropItem();
+            Die();
         }
     }
     private void Die()
