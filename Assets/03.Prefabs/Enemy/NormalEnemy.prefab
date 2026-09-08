@@ -107,14 +107,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9e01927f356ec0419ce83264069fff1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NormalEnemy
-  Speed: 1
-  Health: 100
+  _speed: 1
   _damage: 10
   _buffItem:
   - {fileID: 5296293187849151701, guid: 0c2649b3115a6c44d82667a9ed1f179a, type: 3}
   - {fileID: 4745435792981526040, guid: 26788a81f9d067c41b228b975c715dc6, type: 3}
   - {fileID: 8751296881173142447, guid: a2446fd79a51dbc48aafd9bbb8df1024, type: 3}
   _dropRate: 30
+  _deathEffectPrefab: {fileID: 8194992990867289339, guid: 99bc28c0d45f51c4fbac01080b73edc7, type: 3}
 --- !u!61 &2479270707492973479
 BoxCollider2D:
   m_ObjectHideFlags: 0

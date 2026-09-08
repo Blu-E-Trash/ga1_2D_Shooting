@@ -18,6 +18,9 @@ abstract public class Enemy : MonoBehaviour
     private Animator _animator;
     private static readonly int IsHitHash = Animator.StringToHash("isHit");
 
+    [SerializeField]
+    private GameObject _deathEffectPrefab;
+
     virtual protected void Awake()
     {
         _animator = GetComponent<Animator>();
@@ -45,7 +48,7 @@ abstract public class Enemy : MonoBehaviour
     private void Die()
     {
         TryDropItem();
-        Debug.Log("Enemy Destroyed");
+        Instantiate(_deathEffectPrefab, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 
@@ -59,6 +62,7 @@ abstract public class Enemy : MonoBehaviour
                 playerHealth.TakeDamage(_damage);
             }
             Destroy(gameObject);
+            Instantiate(_deathEffectPrefab, transform.position, Quaternion.identity);
         }
     }
     private void TryDropItem()

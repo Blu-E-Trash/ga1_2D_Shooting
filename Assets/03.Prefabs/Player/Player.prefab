@@ -206,7 +206,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7725fa2696babb44bc4ae7d874c0eee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
-  CurrentHealth: 0
+  _deathEffect: {fileID: 2433282508537954060, guid: 3ef3ae421f71c5c4e97fe12dc2fc6312, type: 3}
+  _currentHealth: 0
 --- !u!114 &2949323666409884546
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -238,8 +239,6 @@ MonoBehaviour:
   SubFirePointR: {fileID: 455721520944269378}
   BulletPrefab: {fileID: 3591588799779360881, guid: 4b9fa77157836bd48b804b6552b0d5b7, type: 3}
   SubBulletPrefab: {fileID: 3591588799779360881, guid: 23241892a7ecfbe46bd7a96a39df1ba9, type: 3}
-  isAutoFire: 0
-  fireRate: 0.5
 --- !u!60 &6489767195836127162
 PolygonCollider2D:
   m_ObjectHideFlags: 0

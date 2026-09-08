@@ -114,7 +114,7 @@ MonoBehaviour:
   - {fileID: 4745435792981526040, guid: 26788a81f9d067c41b228b975c715dc6, type: 3}
   - {fileID: 8751296881173142447, guid: a2446fd79a51dbc48aafd9bbb8df1024, type: 3}
   _dropRate: 30
-  _player: {fileID: 0}
+  _deathEffectPrefab: {fileID: 8194992990867289339, guid: 99bc28c0d45f51c4fbac01080b73edc7, type: 3}
 --- !u!61 &2479270707492973479
 BoxCollider2D:
   m_ObjectHideFlags: 0
