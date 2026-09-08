@@ -8,33 +8,36 @@ public class PlayerFire : MonoBehaviour
     public Transform SubFirePointR;
     public GameObject BulletPrefab;
     public GameObject SubBulletPrefab;
-    public bool isAutoFire = false;
+    private bool _isAutoFire = false;
 
-    public float fireRate = 0.5f;
+    private float _fireRate = 0.5f;
 
-    private float nextFireTime = 0f;
+    private float _nextFireTime = 0f;
 
+    public float nextFireTime => _nextFireTime;
+    public float firerate => _fireRate;
+    public bool ifAutoFire => _isAutoFire;
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            isAutoFire = !isAutoFire;
+            _isAutoFire = !_isAutoFire;
         }
 
-        if (isAutoFire)
+        if (_isAutoFire)
         {
-            if (Time.time >= nextFireTime)
+            if (Time.time >= _nextFireTime)
             {
                 Fire();
-                nextFireTime = Time.time + fireRate;
+                _nextFireTime = Time.time + _fireRate;
             }
         }
         else if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (Time.time >= nextFireTime)
+            if (Time.time >= _nextFireTime)
             {
                 Fire();
-                nextFireTime = Time.time + fireRate;
+                _nextFireTime = Time.time + _fireRate;
             }
         }
     }
@@ -50,11 +53,11 @@ public class PlayerFire : MonoBehaviour
 
     public void FireRateBuff(float amount)
     {
-        fireRate -= amount;
-        if (fireRate < 0.1f)
+        _fireRate -= amount;
+        if (_fireRate < 0.1f)
         {
-            fireRate = 0.1f; // 최소 발사 속도 제한
+            _fireRate = 0.1f; // 최소 발사 속도 제한
         }
-        Debug.Log($"현재 공격속도 간격: {fireRate}");
+        Debug.Log($"현재 공격속도 간격: {_fireRate}");
     }
 }

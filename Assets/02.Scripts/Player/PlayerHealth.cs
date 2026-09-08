@@ -4,29 +4,32 @@ public class PlayerHealth : MonoBehaviour
 {
     private float MaxHealth = 100f;
     [SerializeField]
-    private float CurrentHealth;
+    private float _currentHealth;
+
+    public float Health => _currentHealth;
+
 
     private void Start()
     {
-        CurrentHealth = MaxHealth;
+        _currentHealth = MaxHealth;
     }
 
     public void TakeDamage(float damage)
     {
-        CurrentHealth -= damage;
-        Debug.Log(CurrentHealth.ToString());
-        if (CurrentHealth <= 0)
+        _currentHealth -= damage;
+        Debug.Log(_currentHealth.ToString());
+        if (_currentHealth <= 0)
         {
             Destroy(gameObject);
         }
     }
     public void Heal(float amount)
     {
-        CurrentHealth += amount;
-        if (CurrentHealth > MaxHealth)
+        _currentHealth += amount;
+        if (_currentHealth > MaxHealth)
         {
-            CurrentHealth = MaxHealth;
+            _currentHealth = MaxHealth;
         }
-        Debug.Log($"현재 체력 {CurrentHealth}");
+        Debug.Log($"현재 체력 {_currentHealth}");
     }
 }
