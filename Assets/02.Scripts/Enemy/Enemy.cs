@@ -46,7 +46,7 @@ abstract public class Enemy : MonoBehaviour
             Die();
         }
     }
-    private void Die()
+    public void Die()
     {
         Instantiate(_deathEffectPrefab, transform.position, Quaternion.identity);
         Destroy(gameObject);
@@ -64,7 +64,7 @@ abstract public class Enemy : MonoBehaviour
             Die();
         }
     }
-    private void TryDropItem()
+    public void TryDropItem()
     {
         if (_buffItem == null || _buffItem.Length == 0) return;
 

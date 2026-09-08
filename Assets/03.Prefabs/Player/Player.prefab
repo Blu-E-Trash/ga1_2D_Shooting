@@ -280,6 +280,7 @@ GameObject:
   - component: {fileID: 1359684129025830360}
   - component: {fileID: 2949323666409884546}
   - component: {fileID: 9130849786989614434}
+  - component: {fileID: 669359403942996983}
   - component: {fileID: 6489767195836127162}
   - component: {fileID: 1937731606374972954}
   - component: {fileID: 8937935775274488647}
@@ -358,7 +359,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: 1077034855, guid: 6520dda4a70dfbf40a55b7af39ecda4e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -415,6 +416,20 @@ MonoBehaviour:
   SubFirePointR: {fileID: 455721520944269378}
   BulletPrefab: {fileID: 3591588799779360881, guid: 4b9fa77157836bd48b804b6552b0d5b7, type: 3}
   SubBulletPrefab: {fileID: 3591588799779360881, guid: 23241892a7ecfbe46bd7a96a39df1ba9, type: 3}
+--- !u!114 &669359403942996983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5194570234576377915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1174357b28b9b64582b0f029612809e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerSkill
+  _targetPosition: {fileID: 0}
+  _boom: {fileID: 5987357045189833928, guid: 406626a7f1c186e40af18a9ab514f4d6, type: 3}
 --- !u!60 &6489767195836127162
 PolygonCollider2D:
   m_ObjectHideFlags: 0
