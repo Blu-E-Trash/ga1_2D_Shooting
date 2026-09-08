@@ -3,6 +3,8 @@ using UnityEngine;
 public abstract class Buff : MonoBehaviour
 {
     GameObject player;
+    [SerializeField]
+    private GameObject _getBuffEffect;
 
     [SerializeField]
     protected float Speed;
@@ -44,7 +46,7 @@ public abstract class Buff : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             ApplyBuff(collision.gameObject);
-
+            Instantiate(_getBuffEffect, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }
