@@ -106,6 +106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddf2230ae411fb34983108c25d3d80ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HealBuff
+  _getBuffEffect: {fileID: 8771972552311404799, guid: bbf9e36a48d6c5648a13889afab076fd, type: 3}
   Speed: 3
   waitTime: 3
 --- !u!58 &-3626252004694152681
