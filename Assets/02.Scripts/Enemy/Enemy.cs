@@ -43,11 +43,11 @@ abstract public class Enemy : MonoBehaviour
         if (_health <= 0)
         {
             Die();
+            TryDropItem();
         }
     }
     private void Die()
     {
-        TryDropItem();
         Instantiate(_deathEffectPrefab, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
@@ -61,8 +61,7 @@ abstract public class Enemy : MonoBehaviour
             {
                 playerHealth.TakeDamage(_damage);
             }
-            Destroy(gameObject);
-            Instantiate(_deathEffectPrefab, transform.position, Quaternion.identity);
+            Die();
         }
     }
     private void TryDropItem()

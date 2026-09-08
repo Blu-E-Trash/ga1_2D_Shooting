@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public GameObject _deathEffect;
+    private GameObject _deathEffect;
     private float MaxHealth = 100f;
     [SerializeField]
     private float _currentHealth;
@@ -21,8 +21,8 @@ public class PlayerHealth : MonoBehaviour
         Debug.Log(_currentHealth.ToString());
         if (_currentHealth <= 0)
         {
-            Destroy(gameObject);
             Instantiate(_deathEffect, transform.position, Quaternion.identity);
+            Destroy(gameObject);
         }
     }
     public void Heal(float amount)
