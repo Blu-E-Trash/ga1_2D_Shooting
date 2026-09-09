@@ -4,6 +4,8 @@ public class Boom : MonoBehaviour
 {
     private float _timer = 0;
     private float _waitTime = 3f;
+    [SerializeField]
+    private float _bossDamage = 500f;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision != null)
@@ -13,7 +15,7 @@ public class Boom : MonoBehaviour
                 Enemy enemy = collision.GetComponent<Enemy>();
                 if (collision.gameObject.name == "BossEnemy(Clone)")
                 {
-                    enemy.TakeDamage(500);
+                    enemy.TakeDamage(_bossDamage);
                     return;
                 }
                 enemy.Kill();
