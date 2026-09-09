@@ -1,6 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(AudioSource))]
 abstract public class Enemy : MonoBehaviour
 {
     [SerializeField]
@@ -17,18 +18,22 @@ abstract public class Enemy : MonoBehaviour
     private int _dropRate;
 
     private Animator _animator;
-    // ToDo 적이 공격당할 때 재생시켜주는 소리
-    private AudioSource _damagedAudioSource;
     private static readonly int IsHitHash = Animator.StringToHash("isHit");
 
     [SerializeField]
     private GameObject _deathEffectPrefab;
     private float _maxHealth;
 
+    [Header("Audio Settings")]
+    [SerializeField]
+    protected AudioClip _hitSound; // 피격 및 사망 시 재생할 사운드
+
+    protected AudioSource _audioSource;
+
     virtual protected void Awake()
     {
         _animator = GetComponent<Animator>();
-        _damagedAudioSource = GetComponent<AudioSource>();
+        _audioSource = GetComponent<AudioSource>();
         _maxHealth = _health;
     }
 
@@ -36,21 +41,33 @@ abstract public class Enemy : MonoBehaviour
     {
         Move();
     }
+
     public void ApplyHealthMultiplier(float multiplier)
     {
         _health = _maxHealth * multiplier;
     }
+
     virtual protected void Move()
     {
         Vector2 direction = new Vector2(0, -1);
         Vector2 normalizedSpeed = direction.normalized * _speed;
         transform.position += (Vector3)(normalizedSpeed * Time.deltaTime);
     }
+
     public void TakeDamage(float damage)
     {
         _animator?.SetTrigger(IsHitHash);
         _health -= damage;
-        if (_health <= 0)
+
+        if (_health > 0)
+        {
+            // 살아있을 때: 피격 사운드를 겹쳐서 자연스럽게 재생
+            if (_audioSource != null && _hitSound != null)
+            {
+                _audioSource.PlayOneShot(_hitSound);
+            }
+        }
+        else
         {
             // 체력이 0이 되어 죽을 때만 킬 카운트 증가
             if (GameManager.Instance != null)
@@ -62,18 +79,27 @@ abstract public class Enemy : MonoBehaviour
             Die();
         }
     }
+
     protected virtual void Die()
     {
-        _damagedAudioSource = _deathEffectPrefab.GetComponent<AudioSource>();
-        Instantiate(_deathEffectPrefab, transform.position, Quaternion.identity);
-        _damagedAudioSource.Play();
+        if (_hitSound != null)
+        {
+            AudioSource.PlayClipAtPoint(_hitSound, transform.position);
+        }
+
+        if (_deathEffectPrefab != null)
+        {
+            Instantiate(_deathEffectPrefab, transform.position, Quaternion.identity);
+        }
         Destroy(gameObject);
     }
+
     public void Kill()
     {
         TryDropItem();
         Die();
     }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
@@ -86,6 +112,7 @@ abstract public class Enemy : MonoBehaviour
             Die();
         }
     }
+
     private void TryDropItem()
     {
         if (_buffItem == null || _buffItem.Length == 0) return;

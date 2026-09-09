@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2479270707492973479}
   - component: {fileID: 1592387010285634600}
   - component: {fileID: 2791618664501396433}
-  - component: {fileID: -5783122172218525221}
+  - component: {fileID: 4327329004991789050}
   m_Layer: 0
   m_Name: DownToPlayerEnemy
   m_TagString: Enemy
@@ -117,6 +117,7 @@ MonoBehaviour:
   - {fileID: 8751296881173142447, guid: a2446fd79a51dbc48aafd9bbb8df1024, type: 3}
   _dropRate: 30
   _deathEffectPrefab: {fileID: 8194992990867289339, guid: 99bc28c0d45f51c4fbac01080b73edc7, type: 3}
+  _hitSound: {fileID: 8300000, guid: 9654a94f243e8a34282c9fbc53b72ac2, type: 3}
 --- !u!61 &2479270707492973479
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -212,7 +213,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!82 &-5783122172218525221
+--- !u!82 &4327329004991789050
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -223,8 +224,8 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: f62edc8655f300f47bfdc3ce2671330d, type: 3}
-  m_PlayOnAwake: 0
+  m_Resource: {fileID: 8300000, guid: 9654a94f243e8a34282c9fbc53b72ac2, type: 3}
+  m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

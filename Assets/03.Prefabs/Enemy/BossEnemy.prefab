@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2410078518277484822}
   - component: {fileID: 1606965594691459506}
   - component: {fileID: 1051380353561424409}
-  - component: {fileID: -7641946135470471232}
+  - component: {fileID: 1285588877654563919}
   m_Layer: 6
   m_Name: BossEnemy
   m_TagString: Enemy
@@ -114,6 +114,7 @@ MonoBehaviour:
   _buffItem: []
   _dropRate: 0
   _deathEffectPrefab: {fileID: 2433282508537954060, guid: 3ef3ae421f71c5c4e97fe12dc2fc6312, type: 3}
+  _hitSound: {fileID: 8300000, guid: 9654a94f243e8a34282c9fbc53b72ac2, type: 3}
   _stopPosY: 3
   _introSpeed: 2
   _oscillationSpeed: 1
@@ -214,7 +215,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!82 &-7641946135470471232
+--- !u!82 &1285588877654563919
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -225,8 +226,8 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: f62edc8655f300f47bfdc3ce2671330d, type: 3}
-  m_PlayOnAwake: 0
+  m_Resource: {fileID: 8300000, guid: 9654a94f243e8a34282c9fbc53b72ac2, type: 3}
+  m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

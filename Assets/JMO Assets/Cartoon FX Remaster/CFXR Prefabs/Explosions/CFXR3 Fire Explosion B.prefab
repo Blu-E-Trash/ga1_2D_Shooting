@@ -19496,6 +19496,7 @@ GameObject:
   - component: {fileID: 8194992990867289332}
   - component: {fileID: 1347780276449787774}
   - component: {fileID: 4668868044497782078}
+  - component: {fileID: 3295049391196053}
   m_Layer: 0
   m_Name: CFXR3 Fire Explosion B
   m_TagString: Untagged
@@ -24552,7 +24553,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: f62edc8655f300f47bfdc3ce2671330d, type: 3}
+  m_Resource: {fileID: 8300000, guid: 9654a94f243e8a34282c9fbc53b72ac2, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -24638,3 +24639,15 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &3295049391196053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8194992990867289339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c09aafece04d2254bb7dafb5e11b1665, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AutoDestroy

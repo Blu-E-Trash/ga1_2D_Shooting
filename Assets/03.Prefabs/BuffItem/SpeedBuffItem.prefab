@@ -106,6 +106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26c96d8fd9045d24a9a16e69c7a56e9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MoveSpeedBuff
+  _pickupSound: {fileID: 8300000, guid: 92a43fc0337ed9a4d929f656447c7240, type: 3}
   _getBuffEffect: {fileID: 5112403345868107898, guid: 6f34ef0d986e9db4199cf75805f79753, type: 3}
   _buffItemSpeed: 2
   _waitTime: 3

@@ -4,6 +4,8 @@ public abstract class Buff : MonoBehaviour
 {
     GameObject _player;
     [SerializeField]
+    private AudioClip _pickupSound;
+    [SerializeField]
     private GameObject _getBuffEffect;
 
     [SerializeField]
@@ -46,6 +48,7 @@ public abstract class Buff : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             ApplyBuff(collision.gameObject);
+            AudioSource.PlayClipAtPoint(_pickupSound, transform.position);
             Instantiate(_getBuffEffect, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
