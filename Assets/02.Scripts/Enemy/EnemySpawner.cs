@@ -33,11 +33,17 @@ public class EnemySpawner : MonoBehaviour
     private void SpawnEnemy()
     {
         int randomSpawnPointIndex = Random.Range(0, _spawnPoints.Length);
-
         int randomPoolIndex = Random.Range(0, _enemyPool.Length);
-
         int enemyIndexToSpawn = _enemyPool[randomPoolIndex];
 
-        Instantiate(_enemyPrefab[enemyIndexToSpawn], _spawnPoints[randomSpawnPointIndex].position, Quaternion.identity);
+        GameObject spawnedEnemy = Instantiate(_enemyPrefab[enemyIndexToSpawn], _spawnPoints[randomSpawnPointIndex].position, Quaternion.identity);
+
+        // 생성된 적에게 체력 배율 적용
+        Enemy enemyScript = spawnedEnemy.GetComponent<Enemy>();
+        if (enemyScript != null)
+        {
+            float currentMultiplier = GameManager.Instance.CurrentHealthMultiplier;
+            enemyScript.ApplyHealthMultiplier(currentMultiplier);
+        }
     }
 }

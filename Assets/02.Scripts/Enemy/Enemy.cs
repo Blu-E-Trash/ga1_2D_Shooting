@@ -20,15 +20,21 @@ abstract public class Enemy : MonoBehaviour
 
     [SerializeField]
     private GameObject _deathEffectPrefab;
+    private float _maxHealth;
 
     virtual protected void Awake()
     {
         _animator = GetComponent<Animator>();
+        _maxHealth = _health;
     }
 
     protected void Update()
     {
         Move();
+    }
+    public void ApplyHealthMultiplier(float multiplier)
+    {
+        _health = _maxHealth * multiplier;
     }
     virtual protected void Move()
     {
