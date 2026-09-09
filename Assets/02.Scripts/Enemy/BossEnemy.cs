@@ -3,10 +3,14 @@ using UnityEngine;
 public class BossEnemy : Enemy
 {
     [Header("Boss Movement Settings")]
-    [SerializeField] private float _stopPosY = 3.5f;
-    [SerializeField] private float _introSpeed = 2f; // 처음 등장할 때 아래로 내려오는 속도
-    [SerializeField] private float _oscillationSpeed = 1f; // 좌우 이동 속도
-    [SerializeField] private float _oscillationWidth = 1f; // 좌우 이동 폭
+    [SerializeField]
+    private float _stopPosY = 3.5f;
+    [SerializeField]
+    private float _introSpeed = 2f; // 처음 등장할 때 아래로 내려오는 속도
+    [SerializeField]
+    private float _oscillationSpeed = 1f; // 좌우 이동 속도
+    [SerializeField]
+    private float _oscillationWidth = 1f; // 좌우 이동 폭
 
     private bool _isIntroFinished = false;
     [SerializeField]

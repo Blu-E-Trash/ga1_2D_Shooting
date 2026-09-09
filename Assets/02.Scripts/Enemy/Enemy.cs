@@ -49,6 +49,12 @@ abstract public class Enemy : MonoBehaviour
         _health -= damage;
         if (_health <= 0)
         {
+            // 체력이 0이 되어 죽을 때만 킬 카운트 증가
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.AddKillCount();
+            }
+
             TryDropItem();
             Die();
         }

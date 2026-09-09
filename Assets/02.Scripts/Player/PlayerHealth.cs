@@ -2,37 +2,36 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject _deathEffect;
-    private float _maxHealth = 100f;
+    private float _mMaxHealth = 100f;
     [SerializeField]
     private float _currentHealth;
 
-    public float Health => _currentHealth;
-
-
     private void Start()
     {
-        _currentHealth = _maxHealth;
+        _currentHealth = _mMaxHealth;
     }
 
     public void TakeDamage(float damage)
     {
         _currentHealth -= damage;
-        Debug.Log(_currentHealth.ToString());
+
         if (_currentHealth <= 0)
         {
-            Instantiate(_deathEffect, transform.position, Quaternion.identity);
+            // 플레이어가 죽으면 게임 오버 연출 실행
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.GameOver();
+            }
             Destroy(gameObject);
         }
     }
+
     public void Heal(float amount)
     {
         _currentHealth += amount;
-        if (_currentHealth > _maxHealth)
+        if (_currentHealth > _mMaxHealth)
         {
-            _currentHealth = _maxHealth;
+            _currentHealth = _mMaxHealth;
         }
-        Debug.Log($"현재 체력 {_currentHealth}");
     }
 }
