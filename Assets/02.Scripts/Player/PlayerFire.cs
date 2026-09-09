@@ -14,9 +14,9 @@ public class PlayerFire : MonoBehaviour
 
     private float _nextFireTime = 0f;
 
-    public float nextFireTime => _nextFireTime;
-    public float firerate => _fireRate;
-    public bool ifAutoFire => _isAutoFire;
+    public float NextFireTime => _nextFireTime;
+    public float Firerate => _fireRate;
+    public bool IfAutoFire => _isAutoFire;
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))

@@ -17,7 +17,7 @@ abstract public class Enemy : MonoBehaviour
     private int _dropRate;
 
     private Animator _animator;
-    private static readonly int IsHitHash = Animator.StringToHash("isHit");
+    private static readonly int __isHitHash = Animator.StringToHash("isHit");
 
     [SerializeField]
     private GameObject _deathEffectPrefab;
@@ -45,7 +45,7 @@ abstract public class Enemy : MonoBehaviour
     }
     public void TakeDamage(float damage)
     {
-        _animator?.SetTrigger(IsHitHash);
+        _animator?.SetTrigger(__isHitHash);
         _health -= damage;
         if (_health <= 0)
         {

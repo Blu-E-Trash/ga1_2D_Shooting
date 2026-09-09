@@ -7,11 +7,11 @@ public abstract class Buff : MonoBehaviour
     private GameObject _getBuffEffect;
 
     [SerializeField]
-    protected float Speed;
+    protected float _buffItemSpeed;
 
     [SerializeField]
-    private float waitTime;
-    private float timer = 0f;
+    private float _waitTime;
+    private float _timer = 0f;
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -19,9 +19,9 @@ public abstract class Buff : MonoBehaviour
 
     private void Update()
     {
-        if (timer < waitTime)
+        if (_timer < _waitTime)
         {
-            timer += Time.deltaTime;
+            _timer += Time.deltaTime;
             return;
         }
 
@@ -37,7 +37,7 @@ public abstract class Buff : MonoBehaviour
     {
         if (player == null) return;
         Vector2 direction = player.transform.position - transform.position;
-        Vector2 normalizedSpeed = direction.normalized * Speed;
+        Vector2 normalizedSpeed = direction.normalized * _buffItemSpeed;
         transform.position += (Vector3)(normalizedSpeed * Time.deltaTime);
     }
 

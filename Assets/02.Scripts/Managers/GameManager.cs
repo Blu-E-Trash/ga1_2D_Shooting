@@ -7,23 +7,23 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     [Header("UI Settings")]
-    public Text timerText; // 화면 상단 타이머 UI
-    public GameObject warningUI; // 붉은 테두리 또는 WARNING 텍스트 오브젝트
+    public Text TimerText; // 화면 상단 타이머 UI
+    public GameObject WarningUI; // 붉은 테두리 또는 WARNING 텍스트 오브젝트
 
     [Header("Game State")]
-    public float survivalTime = 0f;
-    public bool isBossWave = false;
-    private bool isWarning = false;
+    public float SurvivalTime = 0f;
+    public bool IsBossWave = false;
+    private bool _isWarning = false;
 
     // 보스가 등장할 다음 목표 시간
-    private float nextBossThreshold = 60f;
+    private float _nextBossThreshold = 60f;
 
     // 적 체력 배율
     public float CurrentHealthMultiplier { get; private set; } = 1f;
 
     private void Awake()
     {
-        warningUI.SetActive(false);
+        WarningUI.SetActive(false);
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
     }
@@ -31,14 +31,14 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         // 보스 웨이브나 경고 상태가 아닐 때만 생존 시간이 흐름
-        if (!isBossWave && !isWarning)
+        if (!IsBossWave && !_isWarning)
         {
-            survivalTime += Time.deltaTime;
+            SurvivalTime += Time.deltaTime;
             UpdateTimerUI();
             UpdateHealthMultiplier();
 
             // 목표 시간에 도달하면 보스 출현 전조(Warning) 시작
-            if (survivalTime >= nextBossThreshold)
+            if (SurvivalTime >= _nextBossThreshold)
             {
                 StartCoroutine(WarningRoutine());
             }
@@ -48,30 +48,30 @@ public class GameManager : MonoBehaviour
     private void UpdateTimerUI()
     {
         // MM:SS 포맷으로 변환
-        int minutes = Mathf.FloorToInt(survivalTime / 60F);
-        int seconds = Mathf.FloorToInt(survivalTime - minutes * 60);
-        timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        int minutes = Mathf.FloorToInt(SurvivalTime / 60F);
+        int seconds = Mathf.FloorToInt(SurvivalTime - minutes * 60);
+        TimerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 
     private void UpdateHealthMultiplier()
     {
         // 1분(60초)마다 체력이 10%(0.1)씩 증가
-        int minutesPassed = Mathf.FloorToInt(survivalTime / 60f);
+        int minutesPassed = Mathf.FloorToInt(SurvivalTime / 60f);
         CurrentHealthMultiplier = 1f + (minutesPassed * 0.1f);
     }
 
     private IEnumerator WarningRoutine()
     {
-        isWarning = true;
-        timerText.color = Color.red; // 타이머를 붉은색으로
+        _isWarning = true;
+        TimerText.color = Color.red; // 타이머를 붉은색으로
 
-        if (warningUI != null) warningUI.SetActive(true);
+        if (WarningUI != null) WarningUI.SetActive(true);
 
         // CanvasGroup 컴포넌트 가져오기
-        CanvasGroup canvasGroup = warningUI.GetComponent<CanvasGroup>();
+        CanvasGroup canvasGroup = WarningUI.GetComponent<CanvasGroup>();
         if (canvasGroup == null)
         {
-            canvasGroup = warningUI.AddComponent<CanvasGroup>();
+            canvasGroup = WarningUI.AddComponent<CanvasGroup>();
         }
 
         float warningTimer = 0f;
@@ -89,10 +89,10 @@ public class GameManager : MonoBehaviour
         }
 
         canvasGroup.alpha = 1f;
-        if (warningUI != null) warningUI.SetActive(false);
+        if (WarningUI != null) WarningUI.SetActive(false);
 
-        isBossWave = true;
-        isWarning = false;
+        IsBossWave = true;
+        _isWarning = false;
 
         SpawnBoss();
     }
@@ -106,9 +106,9 @@ public class GameManager : MonoBehaviour
     // 보스가 죽었을 때 외부(보스 스크립트)에서 호출해 줄 함수
     public void EndBossWave()
     {
-        isBossWave = false;
-        timerText.color = Color.white; // 타이머 색상 원상복구
-        nextBossThreshold += 60f; // 다음 보스 등장 시간 갱신 (임시)
+        IsBossWave = false;
+        TimerText.color = Color.white; // 타이머 색상 원상복구
+        _nextBossThreshold += 60f; // 다음 보스 등장 시간 갱신 (임시)
         Debug.Log("보스 처치! 생존 시간 재개");
     }
 }
