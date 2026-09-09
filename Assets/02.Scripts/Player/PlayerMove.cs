@@ -18,11 +18,6 @@ public class PlayerMove : MonoBehaviour
     {
         Move();
         SpeedChange();
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            PlayerSkill playerSkill = GetComponent<PlayerSkill>();
-            playerSkill.UseSkill();
-        }
     }
 
     private void Move()
