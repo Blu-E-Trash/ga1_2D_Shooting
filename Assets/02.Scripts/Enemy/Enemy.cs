@@ -52,7 +52,7 @@ abstract public class Enemy : MonoBehaviour
             Die();
         }
     }
-    private void Die()
+    protected virtual void Die()
     {
         Instantiate(_deathEffectPrefab, transform.position, Quaternion.identity);
         Destroy(gameObject);

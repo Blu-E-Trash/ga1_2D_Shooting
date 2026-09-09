@@ -22,6 +22,8 @@ public class Boom : MonoBehaviour
             _timer += Time.deltaTime;
         }
         else
+        {
             Destroy(gameObject);
+        }
     }
 }
