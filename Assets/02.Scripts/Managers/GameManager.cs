@@ -10,13 +10,17 @@ public class GameManager : MonoBehaviour
     public Text TimerText; // 화면 상단 타이머 UI
     public GameObject WarningUI; // 붉은 테두리 또는 WARNING 텍스트 오브젝트
 
+    [Header("Boss Spawning")]
+    public GameObject BossPrefab; // 인스펙터에 할당할 보스 프리팹
+    public Transform BossSpawnPoint; // 보스가 처음 등장할 위치
+
     [Header("Game State")]
     public float SurvivalTime = 0f;
     public bool IsBossWave = false;
     private bool _isWarning = false;
 
-    // 보스가 등장할 다음 목표 시간
-    private float _nextBossThreshold = 60f;
+    // 보스가 등장할 다음 목표 시간 (2분 = 120초 단위로 수정)
+    private float _nextBossThreshold = 10f;
 
     // 적 체력 배율
     public float CurrentHealthMultiplier { get; private set; } = 1f;
@@ -82,7 +86,7 @@ public class GameManager : MonoBehaviour
         {
             warningTimer += Time.deltaTime;
 
-            // CanvasGroup의 alpha를 조절하면
+            // CanvasGroup의 alpha를 조절
             canvasGroup.alpha = Mathf.PingPong(warningTimer * blinkSpeed, 1f);
 
             yield return null; // 다음 프레임까지 대기
@@ -99,8 +103,23 @@ public class GameManager : MonoBehaviour
 
     private void SpawnBoss()
     {
-        // TODO: 보스 생성 로직
-        Debug.Log("보스 등장!");
+        if (BossPrefab != null && BossSpawnPoint != null)
+        {
+            // 보스 프리팹을 스폰 위치에 생성
+            GameObject boss = Instantiate(BossPrefab, BossSpawnPoint.position, Quaternion.identity);
+
+            // 생성된 보스에게 현재 시간 비례 체력 배율 적용
+            BossEnemy bossScript = boss.GetComponent<BossEnemy>();
+            if (bossScript != null)
+            {
+                bossScript.ApplyHealthMultiplier(CurrentHealthMultiplier);
+            }
+            Debug.Log("보스 등장!");
+        }
+        else
+        {
+            Debug.LogWarning("보스 프리팹이나 스폰 위치가 할당되지 않았습니다!");
+        }
     }
 
     // 보스가 죽었을 때 외부(보스 스크립트)에서 호출해 줄 함수
@@ -108,7 +127,7 @@ public class GameManager : MonoBehaviour
     {
         IsBossWave = false;
         TimerText.color = Color.white; // 타이머 색상 원상복구
-        _nextBossThreshold += 60f; // 다음 보스 등장 시간 갱신 (임시)
+        _nextBossThreshold += 120f; // 다음 보스 등장 시간을 2분(120초) 뒤로 갱신
         Debug.Log("보스 처치! 생존 시간 재개");
     }
 }

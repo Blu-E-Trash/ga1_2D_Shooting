@@ -2,7 +2,7 @@ using UnityEngine;
 
 public abstract class Buff : MonoBehaviour
 {
-    GameObject player;
+    GameObject _player;
     [SerializeField]
     private GameObject _getBuffEffect;
 
@@ -14,7 +14,7 @@ public abstract class Buff : MonoBehaviour
     private float _timer = 0f;
     private void Awake()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        _player = GameObject.FindGameObjectWithTag("Player");
     }
 
     private void Update()
@@ -25,7 +25,7 @@ public abstract class Buff : MonoBehaviour
             return;
         }
 
-        if (player != null)
+        if (_player != null)
         {
             Move();
         }
@@ -35,8 +35,8 @@ public abstract class Buff : MonoBehaviour
 
     protected void Move()
     {
-        if (player == null) return;
-        Vector2 direction = player.transform.position - transform.position;
+        if (_player == null) return;
+        Vector2 direction = _player.transform.position - transform.position;
         Vector2 normalizedSpeed = direction.normalized * _buffItemSpeed;
         transform.position += (Vector3)(normalizedSpeed * Time.deltaTime);
     }
