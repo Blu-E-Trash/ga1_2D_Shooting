@@ -19,8 +19,8 @@ public class GameManager : MonoBehaviour
     public bool IsBossWave = false;
     private bool _isWarning = false;
 
-    // 보스가 등장할 다음 목표 시간 (2분 = 120초 단위로 수정)
-    private float _nextBossThreshold = 10f;
+    // 보스가 등장할 다음 목표 시간
+    private float _nextBossThreshold = 120;
 
     // 적 체력 배율
     public float CurrentHealthMultiplier { get; private set; } = 1f;
@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour
             if (SurvivalTime >= _nextBossThreshold)
             {
                 StartCoroutine(WarningRoutine());
+                _nextBossThreshold += 120;
             }
         }
     }

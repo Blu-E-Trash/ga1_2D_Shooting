@@ -108,7 +108,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossEnemy
   _speed: 1
-  _health: 300
+  _health: 2000
   _damage: 10
   _buffItem: []
   _dropRate: 0

@@ -6,7 +6,7 @@ public class DestroyZone : MonoBehaviour
     {
         if (collision != null)
         {
-            if (collision.gameObject.name == "BossEnemy")
+            if (collision.gameObject.name == "BossEnemy(Clone)")
             {
                 return;
             }

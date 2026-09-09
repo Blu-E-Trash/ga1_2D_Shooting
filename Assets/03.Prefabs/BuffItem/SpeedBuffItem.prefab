@@ -107,8 +107,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MoveSpeedBuff
   _getBuffEffect: {fileID: 5112403345868107898, guid: 6f34ef0d986e9db4199cf75805f79753, type: 3}
-  Speed: 3
-  waitTime: 3
+  _buffItemSpeed: 2
+  _waitTime: 3
 --- !u!58 &8677689073044135033
 CircleCollider2D:
   m_ObjectHideFlags: 0
