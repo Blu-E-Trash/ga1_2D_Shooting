@@ -8,7 +8,8 @@ public class BossEnemy : Enemy
     [SerializeField] private float _oscillationSpeed = 1f; // 좌우 이동 속도
     [SerializeField] private float _oscillationWidth = 1f; // 좌우 이동 폭
 
-    private bool _isIntroFinished = false; // 등장 연출이 끝났는지 체크
+    private bool _isIntroFinished = false;
+    [SerializeField]
     private float _startX; // 좌우 이동의 기준점이 될 처음 X 좌표
 
     // 부모(Enemy)의 Move 함수를 덮어써서 보스만의 움직임을 만듭니다.

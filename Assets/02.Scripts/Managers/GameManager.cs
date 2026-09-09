@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        warningUI.SetActive(false);
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
     }
@@ -62,16 +63,34 @@ public class GameManager : MonoBehaviour
     private IEnumerator WarningRoutine()
     {
         isWarning = true;
+        timerText.color = Color.red; // 타이머를 붉은색으로
 
-        // 타이머 붉은색으로 변경 및 WARNING UI 켜기
-        timerText.color = Color.red;
         if (warningUI != null) warningUI.SetActive(true);
 
-        // 3초간 대기 (텐션 딜레이)
-        yield return new WaitForSeconds(3f);
+        // CanvasGroup 컴포넌트 가져오기
+        CanvasGroup canvasGroup = warningUI.GetComponent<CanvasGroup>();
+        if (canvasGroup == null)
+        {
+            canvasGroup = warningUI.AddComponent<CanvasGroup>();
+        }
 
-        // 대기 후 보스 웨이브 돌입
+        float warningTimer = 0f;
+        float blinkSpeed = 4f; // 깜빡이는 속도 (수치를 높이면 더 빨리 깜빡거림)
+
+        // 3초 동안 매 프레임 실행되는 반복문
+        while (warningTimer < 3f)
+        {
+            warningTimer += Time.deltaTime;
+
+            // CanvasGroup의 alpha를 조절하면
+            canvasGroup.alpha = Mathf.PingPong(warningTimer * blinkSpeed, 1f);
+
+            yield return null; // 다음 프레임까지 대기
+        }
+
+        canvasGroup.alpha = 1f;
         if (warningUI != null) warningUI.SetActive(false);
+
         isBossWave = true;
         isWarning = false;
 
@@ -80,7 +99,7 @@ public class GameManager : MonoBehaviour
 
     private void SpawnBoss()
     {
-        // TODO: 보스 생성 로직 
+        // TODO: 보스 생성 로직
         Debug.Log("보스 등장!");
     }
 
