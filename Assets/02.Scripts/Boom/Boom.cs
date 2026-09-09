@@ -13,7 +13,7 @@ public class Boom : MonoBehaviour
                 Enemy enemy = collision.GetComponent<Enemy>();
                 if (collision.gameObject.name == "BossEnemy(Clone)")
                 {
-                    enemy.TakeDamage(100);
+                    enemy.TakeDamage(500);
                     return;
                 }
                 enemy.Kill();
