@@ -5,7 +5,12 @@ public class PlayerHealth : MonoBehaviour
     private float _mMaxHealth = 100f;
     [SerializeField]
     private float _currentHealth;
+    private AudioSource _audioSource;
 
+    private void Awake()
+    {
+        _audioSource = GetComponent<AudioSource>();
+    }
     private void Start()
     {
         _currentHealth = _mMaxHealth;
@@ -14,6 +19,7 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage(float damage)
     {
         _currentHealth -= damage;
+        _audioSource.Play();
 
         if (_currentHealth <= 0)
         {
@@ -22,6 +28,7 @@ public class PlayerHealth : MonoBehaviour
             {
                 GameManager.Instance.GameOver();
             }
+
             Destroy(gameObject);
         }
     }

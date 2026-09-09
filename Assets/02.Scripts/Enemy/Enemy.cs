@@ -17,6 +17,8 @@ abstract public class Enemy : MonoBehaviour
     private int _dropRate;
 
     private Animator _animator;
+    // ToDo 적이 공격당할 때 재생시켜주는 소리
+    private AudioSource _damagedAudioSource;
     private static readonly int IsHitHash = Animator.StringToHash("isHit");
 
     [SerializeField]
@@ -26,6 +28,7 @@ abstract public class Enemy : MonoBehaviour
     virtual protected void Awake()
     {
         _animator = GetComponent<Animator>();
+        _damagedAudioSource = GetComponent<AudioSource>();
         _maxHealth = _health;
     }
 
@@ -61,7 +64,9 @@ abstract public class Enemy : MonoBehaviour
     }
     protected virtual void Die()
     {
+        _damagedAudioSource = _deathEffectPrefab.GetComponent<AudioSource>();
         Instantiate(_deathEffectPrefab, transform.position, Quaternion.identity);
+        _damagedAudioSource.Play();
         Destroy(gameObject);
     }
     public void Kill()
