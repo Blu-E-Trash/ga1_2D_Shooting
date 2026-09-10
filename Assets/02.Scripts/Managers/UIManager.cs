@@ -1,20 +1,20 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance { get; private set; }
 
     [Header("In-Game UI")]
-    public Text TimerText;
+    public TextMeshProUGUI TimerText;
     public GameObject WarningUI;
 
     [Header("Game Over UI")]
     public GameObject GameOverPanel;
     public CanvasGroup GameOverCanvasGroup;
-    public Text FinalSurvivalTimeText;
-    public Text KillCountText;
+    public TextMeshProUGUI FinalSurvivalTimeText;
+    public TextMeshProUGUI KillCountText;
 
     private void Awake()
     {
