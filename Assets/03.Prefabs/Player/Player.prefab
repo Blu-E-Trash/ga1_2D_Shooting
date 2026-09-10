@@ -277,6 +277,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5804250273343712716}
   - component: {fileID: 7846717090031636985}
+  - component: {fileID: 6879233413467461051}
   - component: {fileID: 1359684129025830360}
   - component: {fileID: 2949323666409884546}
   - component: {fileID: 9130849786989614434}
@@ -372,6 +373,20 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &6879233413467461051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5194570234576377915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84a7eec44fec6014b9cc4c781b3c3cfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAutoMove
+  _speed: 2
+  _stopTrackingY: 2
 --- !u!114 &1359684129025830360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -396,7 +411,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5194570234576377915}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a5ce84b631bb13742905bf94263f4736, type: 3}
   m_Name: 
