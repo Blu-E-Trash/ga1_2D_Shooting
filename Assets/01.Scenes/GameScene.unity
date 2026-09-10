@@ -403,7 +403,7 @@ GameObject:
   - component: {fileID: 335025056}
   - component: {fileID: 335025055}
   m_Layer: 0
-  m_Name: UiManager
+  m_Name: '@UIManager'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -813,7 +813,7 @@ GameObject:
   - component: {fileID: 547627443}
   - component: {fileID: 547627442}
   m_Layer: 0
-  m_Name: BossManager
+  m_Name: '@BossManager'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2463,7 +2463,7 @@ GameObject:
   - component: {fileID: 1798411575}
   - component: {fileID: 1798411574}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: '@GameManager'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
