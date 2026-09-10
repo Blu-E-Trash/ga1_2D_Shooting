@@ -42,10 +42,10 @@ public class BossManager : MonoBehaviour
         {
             GameObject boss = Instantiate(BossPrefab, BossSpawnPoint.position, Quaternion.identity);
 
-            BossEnemy bossScript = boss.GetComponent<BossEnemy>();
-            if (bossScript != null)
+            EnemyHealth enemyHealth = boss.GetComponent<EnemyHealth>();
+            if (enemyHealth != null)
             {
-                bossScript.ApplyHealthMultiplier(GameManager.Instance.CurrentHealthMultiplier);
+                enemyHealth.ApplyHealthMultiplier(GameManager.Instance.CurrentHealthMultiplier);
             }
             Debug.Log("보스 등장!");
         }

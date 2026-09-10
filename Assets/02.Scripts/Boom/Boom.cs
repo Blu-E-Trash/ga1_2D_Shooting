@@ -4,24 +4,32 @@ public class Boom : MonoBehaviour
 {
     private float _timer = 0;
     private float _waitTime = 3f;
+
     [SerializeField]
     private float _bossDamage = 500f;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision != null)
         {
             if (collision.CompareTag("Enemy"))
             {
-                Enemy enemy = collision.GetComponent<Enemy>();
-                if (collision.gameObject.name == "BossEnemy(Clone)")
+                EnemyHealth enemyHealth = collision.GetComponent<EnemyHealth>();
+
+                if (enemyHealth != null)
                 {
-                    enemy.TakeDamage(_bossDamage);
-                    return;
+                    if (collision.gameObject.name == "BossEnemy(Clone)")
+                    {
+                        enemyHealth.TakeDamage(_bossDamage);
+                        return;
+                    }
+
+                    enemyHealth.Die();
                 }
-                enemy.Kill();
             }
         }
     }
+
     private void Update()
     {
         if (_timer < _waitTime)

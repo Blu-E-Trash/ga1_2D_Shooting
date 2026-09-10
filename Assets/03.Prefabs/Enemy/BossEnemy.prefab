@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 759671550970970394}
   - component: {fileID: 2984863682203909947}
+  - component: {fileID: 4267993048614463947}
+  - component: {fileID: 1393604734799554787}
   - component: {fileID: 380327161945927850}
   - component: {fileID: 2410078518277484822}
   - component: {fileID: 1606965594691459506}
@@ -96,6 +98,34 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &4267993048614463947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6502011990937075890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95b1549aca7115b41b929e5fa35f94d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyCollision
+  _damage: 10
+--- !u!114 &1393604734799554787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6502011990937075890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a405dc98b9a4804089e04e13e6b518a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
+  _health: 3000
+  _deathEffectPrefab: {fileID: 2433282508537954060, guid: 3ef3ae421f71c5c4e97fe12dc2fc6312, type: 3}
+  _hitSound: {fileID: 8300000, guid: 9654a94f243e8a34282c9fbc53b72ac2, type: 3}
 --- !u!114 &380327161945927850
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108,13 +138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9447a852b65d6c240868742d73ed21a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossEnemy
-  _speed: 1
-  _health: 2000
-  _damage: 10
-  _buffItem: []
-  _dropRate: 0
-  _deathEffectPrefab: {fileID: 2433282508537954060, guid: 3ef3ae421f71c5c4e97fe12dc2fc6312, type: 3}
-  _hitSound: {fileID: 8300000, guid: 9654a94f243e8a34282c9fbc53b72ac2, type: 3}
+  _speed: 2
   _stopPosY: 3
   _introSpeed: 2
   _oscillationSpeed: 1

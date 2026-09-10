@@ -15,9 +15,9 @@ public class Bullet : MonoBehaviour
     {
         Destroy(this.gameObject);
 
-        if (other.gameObject.TryGetComponent(out Enemy enemy))
+        if (other.gameObject.TryGetComponent(out EnemyHealth enemyHealth))
         {
-            enemy.TakeDamage(BulletDamage);
+            enemyHealth.TakeDamage(BulletDamage);
         }
     }
 }
