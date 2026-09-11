@@ -424,6 +424,54 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 154439936}
   m_CullTransparentMesh: 1
+--- !u!1 &160360896
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 160360898}
+  - component: {fileID: 160360897}
+  m_Layer: 0
+  m_Name: BullerPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &160360897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 160360896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 058d16df4974f7f4ab73954479f28640, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BulletPool
+  _bulletPrefab: {fileID: 1679631659504459312, guid: 4b9fa77157836bd48b804b6552b0d5b7, type: 3}
+  _poolSize: 50
+  _subBulletPrefab: {fileID: 1679631659504459312, guid: 23241892a7ecfbe46bd7a96a39df1ba9, type: 3}
+  _subPoolSize: 50
+--- !u!4 &160360898
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 160360896}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.0356, y: 2.97334, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &228087997
 GameObject:
   m_ObjectHideFlags: 0
@@ -3543,3 +3591,4 @@ SceneRoots:
   - {fileID: 1892890069}
   - {fileID: 523612440}
   - {fileID: 1099803743}
+  - {fileID: 160360898}

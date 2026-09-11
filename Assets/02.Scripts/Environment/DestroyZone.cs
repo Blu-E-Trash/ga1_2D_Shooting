@@ -11,6 +11,11 @@ public class DestroyZone : MonoBehaviour
                 return;
             }
         }
+        if (collision.gameObject.CompareTag("Bullet"))
+        {
+            collision.gameObject.SetActive(false);
+            return;
+        }
         Destroy(collision.gameObject);
     }
 }

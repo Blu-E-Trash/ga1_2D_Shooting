@@ -44,11 +44,29 @@ public class PlayerFire : MonoBehaviour
 
     private void Fire()
     {
-        Instantiate(BulletPrefab, FirePointL.position, Quaternion.identity);
-        Instantiate(SubBulletPrefab, SubFirePointL.position, Quaternion.identity);
+        Bullet leftBullet = BulletPool.Instance.ReturnBullet();
+        if (leftBullet != null)
+        {
+            leftBullet.transform.position = FirePointL.position;
+        }
 
-        Instantiate(BulletPrefab, FirePointR.position, Quaternion.identity);
-        Instantiate(SubBulletPrefab, SubFirePointR.position, Quaternion.identity);
+        Bullet rightBullet = BulletPool.Instance.ReturnBullet();
+        if (rightBullet != null)
+        {
+            rightBullet.transform.position = FirePointR.position;
+        }
+
+        Bullet subLeftBullet = BulletPool.Instance.ReturnSubBullet();
+        if (subLeftBullet != null)
+        {
+            subLeftBullet.transform.position = SubFirePointL.position;
+        }
+
+        Bullet subRightBullet = BulletPool.Instance.ReturnSubBullet();
+        if (subRightBullet != null)
+        {
+            subRightBullet.transform.position = SubFirePointR.position;
+        }
     }
 
     public void FireRateBuff(float amount)
