@@ -3,7 +3,7 @@ using UnityEngine;
 public class EnemyLoot : MonoBehaviour
 {
     [Header("Loot Settings")]
-    [SerializeField] private ItemSpawnDataTableSO _lootTable;
+    [SerializeField] private ItemSpawnDataTable _lootTable;
     [SerializeField] private int _dropRate;
 
     public void TryDropItem()
