@@ -3,7 +3,6 @@ using UnityEngine;
 public class EnemyTypeDownToPlayer : Enemy
 {
     private Vector2 _moveDirection;
-
     private GameObject _player;
 
     override protected void Awake()
@@ -15,12 +14,16 @@ public class EnemyTypeDownToPlayer : Enemy
         }
     }
 
-    private void Start()
+    // 창고에서 나올 때마다 방향을 갱신
+    private void OnEnable()
     {
-        Vector2 direction = _player.transform.position - this.transform.position;
-        _moveDirection = direction.normalized;
+        if (_player != null)
+        {
+            Vector2 direction = _player.transform.position - this.transform.position;
+            _moveDirection = direction.normalized;
 
-        RotateTowards(direction);
+            RotateTowards(direction);
+        }
     }
 
     override protected void Move()

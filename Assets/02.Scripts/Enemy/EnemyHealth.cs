@@ -23,11 +23,18 @@ public class EnemyHealth : MonoBehaviour
         _animator = GetComponent<Animator>();
         _audioSource = GetComponent<AudioSource>();
         _enemyLoot = GetComponent<EnemyLoot>();
-        _maxHealth = _health;
+        _maxHealth = _health; // 초기 인스펙터에 설정된 기본 체력 기억
+    }
+
+    // 다시 활성화될 때마다 체력을 리셋합니다.
+    private void OnEnable()
+    {
+        _health = _maxHealth;
     }
 
     public void ApplyHealthMultiplier(float multiplier)
     {
+        // Spawner에서 스폰 직후 호출되므로 배율에 맞춰 현재 체력이 세팅됩니다.
         _health = _maxHealth * multiplier;
     }
 
@@ -76,6 +83,16 @@ public class EnemyHealth : MonoBehaviour
             if (BossManager.Instance != null) BossManager.Instance.EndBossWave();
         }
 
-        Destroy(gameObject);
+        // ObjectManager로 반환
+        string poolTag = gameObject.name.Replace("(Clone)", "").Trim();
+
+        if (ObjectManager.Instance != null)
+        {
+            ObjectManager.Instance.ReturnToPool(poolTag, gameObject);
+        }
+        else
+        {
+            gameObject.SetActive(false); // 매니저가 없을 때를 대비한 방어 코드
+        }
     }
 }

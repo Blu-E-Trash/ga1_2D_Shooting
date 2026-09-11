@@ -28,7 +28,6 @@ public class EnemySpawner : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        // 방어 코드: SO가 할당되지 않았거나 데이터가 없을 때, 혹은 스폰 포인트가 없을 때
         if (_spawnDataTable == null || _spawnDataTable.Datas == null || _spawnDataTable.Datas.Length == 0) return;
         if (_spawnPoints == null || _spawnPoints.Length == 0) return;
 
@@ -44,8 +43,13 @@ public class EnemySpawner : MonoBehaviour
         int randomSpawnPointIndex = Random.Range(0, _spawnPoints.Length);
         Transform spawnPoint = _spawnPoints[randomSpawnPointIndex];
 
-        // 적 생성
-        GameObject spawnedEnemy = Instantiate(enemyPrefabToSpawn, spawnPoint.position, Quaternion.identity);
+        // Instantiate 대신 ObjectManager의 풀링 시스템을 사용
+        // 프리팹의 이름 자체를 태그(Key)로 사용하여 풀에서 꺼내옵니다.
+        string poolTag = enemyPrefabToSpawn.name;
+        GameObject spawnedEnemy = ObjectManager.Instance.SpawnFromPool(poolTag, spawnPoint.position, Quaternion.identity);
+
+        // 풀 매니저에 해당 태그가 없어서 null이 반환될 경우를 대비한 방어 코드
+        if (spawnedEnemy == null) return;
 
         // 체력 배율 적용
         EnemyHealth enemyHealth = spawnedEnemy.GetComponent<EnemyHealth>();
