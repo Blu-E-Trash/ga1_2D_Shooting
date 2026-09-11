@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [Header("적 스폰 데이터 (가중치 기반)")]
+    [Header("적 스폰 데이터 (Scriptable Object)")]
     [SerializeField]
-    private EnemySpawnData[] _spawnDatas;
+    private EnemySpawnDataTableSO _spawnDataTable;
 
     [Header("적 생성 간격")]
     private float _spawnInterval = 2.0f;
@@ -13,13 +13,6 @@ public class EnemySpawner : MonoBehaviour
     [Header("적 생성 위치")]
     [SerializeField]
     private Transform[] _spawnPoints;
-
-    private int _totalWeight = 0;
-
-    private void Start()
-    {
-        CalculateTotalWeight();
-    }
 
     private void Update()
     {
@@ -33,31 +26,28 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    private void CalculateTotalWeight()
-    {
-        _totalWeight = 0;
-        if (_spawnDatas != null)
-        {
-            foreach (EnemySpawnData data in _spawnDatas)
-            {
-                _totalWeight += data.Weight;
-            }
-        }
-    }
-
     private void SpawnEnemy()
     {
-        // 1. 가중치 기반으로 적 프리팹 선택
+        // 방어 코드: SO가 할당되지 않았거나 데이터가 없을 때, 혹은 스폰 포인트가 없을 때
+        if (_spawnDataTable == null || _spawnDataTable.Datas == null || _spawnDataTable.Datas.Length == 0) return;
+        if (_spawnPoints == null || _spawnPoints.Length == 0) return;
+
+        // 가중치 기반으로 적 프리팹 선택
         GameObject enemyPrefabToSpawn = GetRandomEnemyPrefab();
 
-        // 2. 랜덤 스폰 위치 선택
+        if (enemyPrefabToSpawn == null)
+        {
+            return;
+        }
+
+        // 랜덤 스폰 위치 선택
         int randomSpawnPointIndex = Random.Range(0, _spawnPoints.Length);
         Transform spawnPoint = _spawnPoints[randomSpawnPointIndex];
 
-        // 3. 적 생성
+        // 적 생성
         GameObject spawnedEnemy = Instantiate(enemyPrefabToSpawn, spawnPoint.position, Quaternion.identity);
 
-        // 4. 체력 배율 적용
+        // 체력 배율 적용
         EnemyHealth enemyHealth = spawnedEnemy.GetComponent<EnemyHealth>();
         if (enemyHealth != null && GameManager.Instance != null)
         {
@@ -68,12 +58,18 @@ public class EnemySpawner : MonoBehaviour
 
     private GameObject GetRandomEnemyPrefab()
     {
-        if (_totalWeight <= 0) return null;
+        int totalWeight = 0;
+        foreach (EnemySpawnData data in _spawnDataTable.Datas)
+        {
+            totalWeight += data.Weight;
+        }
 
-        int randomWeight = Random.Range(0, _totalWeight);
+        if (totalWeight <= 0) return null;
+
+        int randomWeight = Random.Range(0, totalWeight);
         int cumulativeWeight = 0;
 
-        foreach (EnemySpawnData data in _spawnDatas)
+        foreach (EnemySpawnData data in _spawnDataTable.Datas)
         {
             cumulativeWeight += data.Weight;
             if (randomWeight < cumulativeWeight)

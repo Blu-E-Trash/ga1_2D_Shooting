@@ -124,10 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8045867171ef69f4a92c0e6613ff7ad8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyLoot
-  _buffItem:
-  - {fileID: 5296293187849151701, guid: 0c2649b3115a6c44d82667a9ed1f179a, type: 3}
-  - {fileID: 4745435792981526040, guid: 26788a81f9d067c41b228b975c715dc6, type: 3}
-  - {fileID: 8751296881173142447, guid: a2446fd79a51dbc48aafd9bbb8df1024, type: 3}
+  _lootTable: {fileID: 11400000, guid: eb489f0289b5cf14caf7982c0c9e9428, type: 2}
   _dropRate: 30
 --- !u!114 &-4688376135212685060
 MonoBehaviour:

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0bfd55624eb159489c3eb5b3816b170, type: 3}
+  m_Name: NewItemSpawnTable
+  m_EditorClassIdentifier: Assembly-CSharp::ItemSpawnDataTable
+  Datas:
+  - ItemName: AttackRateBuff
+    ItemPrefab: {fileID: 5296293187849151701, guid: 0c2649b3115a6c44d82667a9ed1f179a, type: 3}
+    Weight: 30
+  - ItemName: Heal
+    ItemPrefab: {fileID: 4745435792981526040, guid: 26788a81f9d067c41b228b975c715dc6, type: 3}
+    Weight: 30
+  - ItemName: SpeedBuff
+    ItemPrefab: {fileID: 8751296881173142447, guid: a2446fd79a51dbc48aafd9bbb8df1024, type: 3}
+    Weight: 30
