@@ -8,18 +8,17 @@ public class EnemyLoot : MonoBehaviour
 
     public void TryDropItem()
     {
-        // SO가 할당되지 않았거나 데이터가 없을 때
         if (_lootTable == null || _lootTable.Datas == null || _lootTable.Datas.Length == 0) return;
 
         int randomChance = Random.Range(0, 100);
         if (randomChance >= _dropRate) return;
 
-        // 가중치 기반으로 아이템 프리팹 선택
         GameObject itemToSpawn = GetRandomItemPrefab();
 
         if (itemToSpawn != null)
         {
-            Instantiate(itemToSpawn, transform.position, Quaternion.identity);
+            string poolTag = itemToSpawn.name;
+            ObjectManager.Instance.SpawnFromPool(poolTag, transform.position, Quaternion.identity);
         }
     }
 

@@ -424,54 +424,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 154439936}
   m_CullTransparentMesh: 1
---- !u!1 &160360896
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 160360898}
-  - component: {fileID: 160360897}
-  m_Layer: 0
-  m_Name: BullerPool
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &160360897
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 160360896}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 058d16df4974f7f4ab73954479f28640, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BulletPool
-  _bulletPrefab: {fileID: 1679631659504459312, guid: 4b9fa77157836bd48b804b6552b0d5b7, type: 3}
-  _poolSize: 50
-  _subBulletPrefab: {fileID: 1679631659504459312, guid: 23241892a7ecfbe46bd7a96a39df1ba9, type: 3}
-  _subPoolSize: 50
---- !u!4 &160360898
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 160360896}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.0356, y: 2.97334, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &228087997
 GameObject:
   m_ObjectHideFlags: 0
@@ -1542,6 +1494,7 @@ Transform:
   - {fileID: 1798411575}
   - {fileID: 335025056}
   - {fileID: 547627443}
+  - {fileID: 1455264631}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &889682813
@@ -2235,6 +2188,78 @@ Transform:
   m_Children: []
   m_Father: {fileID: 568469137}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1455264630
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1455264631}
+  - component: {fileID: 1455264632}
+  m_Layer: 0
+  m_Name: '@ObjectManager'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1455264631
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1455264630}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 859324933}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1455264632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1455264630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e21f24229f987642b864488f314ee05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectManager
+  pools:
+  - tag: DownToPlayerEnemy
+    prefab: {fileID: 3353325643861258011, guid: d8a46e77e430ccd42a7684c82c0e8215, type: 3}
+    size: 10
+  - tag: FollowPlayerEnemy
+    prefab: {fileID: 3353325643861258011, guid: 2a01531c517103945b56dfb32efe3b49, type: 3}
+    size: 10
+  - tag: NormalEnemy
+    prefab: {fileID: 3353325643861258011, guid: 52d4b2c819396dd45bf611742bdfe535, type: 3}
+    size: 10
+  - tag: BossEnemy
+    prefab: {fileID: 6502011990937075890, guid: 6b9315835dc08464a9de8f0f367e95fa, type: 3}
+    size: 1
+  - tag: AttackRateBuffItem
+    prefab: {fileID: 5296293187849151701, guid: 0c2649b3115a6c44d82667a9ed1f179a, type: 3}
+    size: 5
+  - tag: HealItem
+    prefab: {fileID: 4745435792981526040, guid: 26788a81f9d067c41b228b975c715dc6, type: 3}
+    size: 5
+  - tag: SpeedBuffItem
+    prefab: {fileID: 8751296881173142447, guid: a2446fd79a51dbc48aafd9bbb8df1024, type: 3}
+    size: 5
+  - tag: Bullet
+    prefab: {fileID: 3591588799779360881, guid: 4b9fa77157836bd48b804b6552b0d5b7, type: 3}
+    size: 30
+  - tag: SubBullet
+    prefab: {fileID: 3591588799779360881, guid: 23241892a7ecfbe46bd7a96a39df1ba9, type: 3}
+    size: 30
 --- !u!1 &1536784338
 GameObject:
   m_ObjectHideFlags: 0
@@ -3527,6 +3552,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 669359403942996983, guid: ca3a73419d6b3f848baa368906ebf3be, type: 3}
+      propertyPath: _targetPosition
+      value: 
+      objectReference: {fileID: 697086119}
     - target: {fileID: 5194570234576377915, guid: ca3a73419d6b3f848baa368906ebf3be, type: 3}
       propertyPath: m_Name
       value: Player
@@ -3591,4 +3620,3 @@ SceneRoots:
   - {fileID: 1892890069}
   - {fileID: 523612440}
   - {fileID: 1099803743}
-  - {fileID: 160360898}

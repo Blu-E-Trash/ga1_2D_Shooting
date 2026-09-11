@@ -15,15 +15,16 @@ public class Bullet : MonoBehaviour
     {
         _audioSource = GetComponent<AudioSource>();
     }
+
     void Update()
     {
         Vector2 direction = Vector2.up;
         transform.position += (Vector3)direction * BulletSpeed * Time.deltaTime;
 
-        // 화면 밖으로 날아간 총알 비활성화 (foreach에서 다시 찾을 수 있게 됨)
+        // 화면 밖으로 날아간 총알 회수
         if (transform.position.y >= _destroyPosY)
         {
-            gameObject.SetActive(false);
+            ReturnToPool();
         }
     }
 
@@ -34,8 +35,11 @@ public class Bullet : MonoBehaviour
 
     private void PlaySound()
     {
-        _audioSource.pitch = UnityEngine.Random.Range(1f, 3f);
-        _audioSource.Play();
+        if (_audioSource != null)
+        {
+            _audioSource.pitch = UnityEngine.Random.Range(1f, 3f);
+            _audioSource.Play();
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -44,7 +48,22 @@ public class Bullet : MonoBehaviour
         {
             enemyHealth.TakeDamage(BulletDamage);
 
-            // 적을 맞춘 총알 비활성화
+            // 적을 맞춘 총알 회수
+            ReturnToPool();
+        }
+    }
+
+    // 통합 매니저로 반환
+    private void ReturnToPool()
+    {
+        string poolTag = gameObject.name.Replace("(Clone)", "").Trim();
+
+        if (ObjectManager.Instance != null)
+        {
+            ObjectManager.Instance.ReturnToPool(poolTag, gameObject);
+        }
+        else
+        {
             gameObject.SetActive(false);
         }
     }

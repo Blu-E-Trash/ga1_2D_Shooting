@@ -14,9 +14,16 @@ public abstract class Buff : MonoBehaviour
     [SerializeField]
     private float _waitTime;
     private float _timer = 0f;
+
     private void Awake()
     {
         _player = GameObject.FindGameObjectWithTag("Player");
+    }
+
+    // 다시 나올 때마다 대기 시간 타이머를 0으로 리셋
+    private void OnEnable()
+    {
+        _timer = 0f;
     }
 
     private void Update()
@@ -48,9 +55,28 @@ public abstract class Buff : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             ApplyBuff(collision.gameObject);
-            AudioSource.PlayClipAtPoint(_pickupSound, transform.position);
-            Instantiate(_getBuffEffect, transform.position, Quaternion.identity);
-            Destroy(gameObject);
+
+            if (_pickupSound != null)
+            {
+                AudioSource.PlayClipAtPoint(_pickupSound, transform.position);
+            }
+
+            if (_getBuffEffect != null)
+            {
+                Instantiate(_getBuffEffect, transform.position, Quaternion.identity);
+            }
+
+            // 태그를 추출하여 ObjectManager로 반환
+            string poolTag = gameObject.name.Replace("(Clone)", "").Trim();
+
+            if (ObjectManager.Instance != null)
+            {
+                ObjectManager.Instance.ReturnToPool(poolTag, gameObject);
+            }
+            else
+            {
+                gameObject.SetActive(false); // 매니저 부재 시 방어 코드
+            }
         }
     }
 }

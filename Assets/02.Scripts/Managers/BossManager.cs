@@ -40,22 +40,26 @@ public class BossManager : MonoBehaviour
 
         if (BossPrefab != null && BossSpawnPoint != null)
         {
-            GameObject boss = Instantiate(BossPrefab, BossSpawnPoint.position, Quaternion.identity);
+            string poolTag = BossPrefab.name;
+            GameObject boss = ObjectManager.Instance.SpawnFromPool(poolTag, BossSpawnPoint.position, Quaternion.identity);
 
-            EnemyHealth enemyHealth = boss.GetComponent<EnemyHealth>();
-            if (enemyHealth != null)
+            if (boss != null)
             {
-                enemyHealth.ApplyHealthMultiplier(GameManager.Instance.CurrentHealthMultiplier);
+                EnemyHealth enemyHealth = boss.GetComponent<EnemyHealth>();
+                if (enemyHealth != null)
+                {
+                    enemyHealth.ApplyHealthMultiplier(GameManager.Instance.CurrentHealthMultiplier);
+                }
             }
-            Debug.Log("보스 등장!");
         }
     }
 
-    // 보스가 죽었을 때 외부에서 호출해 줄 함수
     public void EndBossWave()
     {
         GameManager.Instance.IsBossWave = false;
-        UIManager.Instance.ResetTimerColor();
-        Debug.Log("보스 처치! 생존 시간 재개");
+        if (UIManager.Instance != null)
+        {
+            UIManager.Instance.ResetTimerColor();
+        }
     }
 }

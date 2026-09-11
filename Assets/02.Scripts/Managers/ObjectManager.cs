@@ -69,9 +69,9 @@ public class ObjectManager : MonoBehaviour
 
         GameObject objectToSpawn = poolDictionary[tag].Dequeue();
 
-        objectToSpawn.SetActive(true);
         objectToSpawn.transform.position = position;
         objectToSpawn.transform.rotation = rotation;
+        objectToSpawn.SetActive(true);
 
         return objectToSpawn;
     }

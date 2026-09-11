@@ -6,17 +6,15 @@ public class PlayerFire : MonoBehaviour
     public Transform SubFirePointL;
     public Transform FirePointR;
     public Transform SubFirePointR;
-    public GameObject BulletPrefab;
-    public GameObject SubBulletPrefab;
+
     private bool _isAutoFire = false;
-
     private float _fireRate = 0.5f;
-
     private float _nextFireTime = 0f;
 
     public float NextFireTime => _nextFireTime;
     public float Firerate => _fireRate;
     public bool IfAutoFire => _isAutoFire;
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -44,29 +42,17 @@ public class PlayerFire : MonoBehaviour
 
     private void Fire()
     {
-        Bullet leftBullet = BulletPool.Instance.ReturnBullet();
-        if (leftBullet != null)
-        {
-            leftBullet.transform.position = FirePointL.position;
-        }
+        GameObject leftBullet = ObjectManager.Instance.SpawnFromPool("Bullet", FirePointL.position, Quaternion.identity);
+        if (leftBullet != null) leftBullet.GetComponent<Bullet>()?.OnSpawn();
 
-        Bullet rightBullet = BulletPool.Instance.ReturnBullet();
-        if (rightBullet != null)
-        {
-            rightBullet.transform.position = FirePointR.position;
-        }
+        GameObject rightBullet = ObjectManager.Instance.SpawnFromPool("Bullet", FirePointR.position, Quaternion.identity);
+        if (rightBullet != null) rightBullet.GetComponent<Bullet>()?.OnSpawn();
 
-        Bullet subLeftBullet = BulletPool.Instance.ReturnSubBullet();
-        if (subLeftBullet != null)
-        {
-            subLeftBullet.transform.position = SubFirePointL.position;
-        }
+        GameObject subLeftBullet = ObjectManager.Instance.SpawnFromPool("SubBullet", SubFirePointL.position, Quaternion.identity);
+        if (subLeftBullet != null) subLeftBullet.GetComponent<Bullet>()?.OnSpawn();
 
-        Bullet subRightBullet = BulletPool.Instance.ReturnSubBullet();
-        if (subRightBullet != null)
-        {
-            subRightBullet.transform.position = SubFirePointR.position;
-        }
+        GameObject subRightBullet = ObjectManager.Instance.SpawnFromPool("SubBullet", SubFirePointR.position, Quaternion.identity);
+        if (subRightBullet != null) subRightBullet.GetComponent<Bullet>()?.OnSpawn();
     }
 
     public void FireRateBuff(float amount)
@@ -74,7 +60,7 @@ public class PlayerFire : MonoBehaviour
         _fireRate -= amount;
         if (_fireRate < 0.1f)
         {
-            _fireRate = 0.1f; // 최소 발사 속도 제한
+            _fireRate = 0.1f;
         }
         Debug.Log($"현재 공격속도 간격: {_fireRate}");
     }
