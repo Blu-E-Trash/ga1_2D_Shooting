@@ -19,6 +19,7 @@ public class EnemyLoot : MonoBehaviour
         {
             string poolTag = itemToSpawn.name;
             ObjectManager.Instance.SpawnFromPool(poolTag, transform.position, Quaternion.identity);
+            return;
         }
     }
 

@@ -2,67 +2,81 @@ using UnityEngine;
 
 public class PlayerAutoMove : MonoBehaviour
 {
-    [SerializeField] private float _speed;
     [SerializeField] private int _stopTrackingY = 2;
+    [SerializeField] private float _findTargetCooldown = 0.5f;
 
     private GameObject _target = null;
+    private float _searchTimer = 0f;
+    private PlayerMove _playerMove;
+
+    private void Awake()
+    {
+        _playerMove = GetComponent<PlayerMove>();
+        if (_playerMove == null)
+        {
+            return;
+        }
+    }
 
     private void Update()
     {
-        if (_target == null || _target.transform.position.y < -_stopTrackingY)
+        if (_target == null || !_target.activeInHierarchy || _target.transform.position.y < -_stopTrackingY)
         {
-            FindNearestTarget();
+            _searchTimer += Time.deltaTime;
+            if (_searchTimer >= _findTargetCooldown)
+            {
+                FindNearestTarget();
+                _searchTimer = 0f;
+            }
         }
-
-        Move();
+        else
+        {
+            Move();
+        }
     }
 
     private void Move()
     {
-        if (_target == null) return;
+        if (_target == null || !_target.activeInHierarchy) return;
 
-        // 2. 방향을 구한다.
         Vector3 diff = _target.transform.position - transform.position;
-        Vector3 direction = diff;
+        Vector3 direction;
 
-        // 적과 나와의 y축 차이가 3보다 크면 앞으로 가고 아니라면 뒤로가게
-        if (diff.y >= 3)
+        if (diff.y >= 3f)
         {
-            direction.y = 1;
+            direction = diff.normalized;
         }
         else
         {
-            direction.y = -1;
+            direction = new Vector3(diff.x, -1f, 0).normalized;
         }
 
-        direction.Normalize();
-
-        // 3. 속도에 맞게 이동을한다.
-        transform.position += direction * _speed * Time.deltaTime;
+        // PlayerMove의 Speed 값을 가져와서 이동에 반영
+        float currentSpeed = _playerMove != null ? _playerMove.Speed : 5f;
+        transform.position += direction * currentSpeed * Time.deltaTime;
     }
 
     private void FindNearestTarget()
     {
-        // 1. 타겟을 구한다.
         GameObject[] targets = GameObject.FindGameObjectsWithTag("Enemy");
-        if (targets.Length == 0) return;
+        if (targets.Length == 0)
+        {
+            _target = null;
+            return;
+        }
 
-        _target = targets[0];
+        _target = null;
         float minDistance = float.MaxValue;
 
-        // 1-1. 가장 가까운 타겟을 찾는다.
         foreach (GameObject enemy in targets)
         {
-            if (enemy.transform.position.y < -_stopTrackingY)
-            {
-                continue;
-            }
+            if (!enemy.activeInHierarchy) continue;
 
-            // 거리를 구해서
+            if (enemy.transform.position.y < -_stopTrackingY) continue;
+
             float distance = Vector2.Distance(transform.position, enemy.transform.position);
-            if (distance < minDistance) // 저장된 거리보다 짧다면
+            if (distance < minDistance)
             {
-                // 타겟 변경
                 minDistance = distance;
                 _target = enemy;
             }
