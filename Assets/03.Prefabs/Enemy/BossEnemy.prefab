@@ -124,6 +124,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
   _health: 3000
+  _meritReward: 50
   _deathEffectPrefab: {fileID: 2433282508537954060, guid: 3ef3ae421f71c5c4e97fe12dc2fc6312, type: 3}
   _hitSound: {fileID: 8300000, guid: 9654a94f243e8a34282c9fbc53b72ac2, type: 3}
 --- !u!114 &380327161945927850

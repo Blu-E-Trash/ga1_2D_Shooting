@@ -7,35 +7,38 @@ public class PlayerFire : MonoBehaviour
     public Transform FirePointR;
     public Transform SubFirePointR;
 
-    private bool _isAutoFire = false;
-    private float _fireRate = 0.5f;
     private float _nextFireTime = 0f;
 
     public float NextFireTime => _nextFireTime;
-    public float Firerate => _fireRate;
-    public bool IfAutoFire => _isAutoFire;
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (GameManager.Instance != null && GameManager.Instance.IsGameOver)
         {
-            _isAutoFire = !_isAutoFire;
+            return;
         }
 
-        if (_isAutoFire)
+        bool isAuto = PlayerStatus.Instance != null && PlayerStatus.Instance.IsAutoMode;
+
+        float currentFireRate = PlayerStatus.Instance != null ? PlayerStatus.Instance.FinalFireRate : 0.5f;
+
+        if (isAuto)
         {
             if (Time.time >= _nextFireTime)
             {
                 Fire();
-                _nextFireTime = Time.time + _fireRate;
+                _nextFireTime = Time.time + currentFireRate;
             }
         }
-        else if (Input.GetKeyDown(KeyCode.Space))
+        else
         {
-            if (Time.time >= _nextFireTime)
+            if (Input.GetKey(KeyCode.Space))
             {
-                Fire();
-                _nextFireTime = Time.time + _fireRate;
+                if (Time.time >= _nextFireTime)
+                {
+                    Fire();
+                    _nextFireTime = Time.time + currentFireRate;
+                }
             }
         }
     }
@@ -53,19 +56,5 @@ public class PlayerFire : MonoBehaviour
 
         GameObject subRightBullet = ObjectManager.Instance.SpawnFromPool("SubBullet", SubFirePointR.position, Quaternion.identity);
         if (subRightBullet != null) subRightBullet.GetComponent<Bullet>()?.OnSpawn();
-    }
-
-    public void FireRateBuff(float amount)
-    {
-        _fireRate -= amount;
-        if (_fireRate < 0.1f)
-        {
-            _fireRate = 0.1f;
-        }
-        Debug.Log($"현재 공격속도 간격: {_fireRate}");
-    }
-    public void SetAuto(bool auto)
-    {
-        _isAutoFire = auto;
     }
 }

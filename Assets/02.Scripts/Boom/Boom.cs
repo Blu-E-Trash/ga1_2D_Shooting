@@ -8,6 +8,13 @@ public class Boom : MonoBehaviour
     [SerializeField]
     private float _bossDamage = 500f;
 
+    private float _boomDamageMultiplier = 10f;
+
+    private void OnEnable()
+    {
+        _timer = 0f;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision != null)
@@ -18,9 +25,15 @@ public class Boom : MonoBehaviour
 
                 if (enemyHealth != null)
                 {
-                    if (collision.gameObject.name == "BossEnemy(Clone)")
+                    if (collision.gameObject.name.Contains("BossEnemy"))
                     {
-                        enemyHealth.TakeDamage(_bossDamage);
+                        float finalBossDamage = _bossDamage;
+                        if (PlayerStatus.Instance != null)
+                        {
+                            finalBossDamage += (PlayerStatus.Instance.FinalBonusDamage * _boomDamageMultiplier);
+                        }
+
+                        enemyHealth.TakeDamage(finalBossDamage);
                         return;
                     }
 
@@ -38,7 +51,20 @@ public class Boom : MonoBehaviour
         }
         else
         {
-            Destroy(gameObject);
+            ReturnToPool();
+        }
+    }
+
+    private void ReturnToPool()
+    {
+        string poolTag = gameObject.name.Replace("(Clone)", "").Trim();
+        if (ObjectManager.Instance != null)
+        {
+            ObjectManager.Instance.ReturnToPool(poolTag, gameObject);
+        }
+        else
+        {
+            gameObject.SetActive(false);
         }
     }
 }

@@ -9,6 +9,10 @@ public class GameManager : MonoBehaviour
     public float SurvivalTime = 0f;
     public float BestSurvuvedTime = 0f;
     public int KillCount = 0;
+
+    [Header("Currency / Merit")]
+    public int CurrentMerit = 0;
+
     public float CurrentHealthMultiplier { get; private set; } = 1f;
 
     public bool IsGameOver { get; private set; } = false;
@@ -20,7 +24,6 @@ public class GameManager : MonoBehaviour
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
 
-        // 게임 시작 시 저장된 최고 생존 시간 불러오기
         BestSurvuvedTime = PlayerPrefs.GetFloat("BestSurvivalTime", 0f);
     }
 
@@ -29,7 +32,6 @@ public class GameManager : MonoBehaviour
         if (!IsGameOver && !IsBossWave && !IsWarning)
         {
             SurvivalTime += Time.deltaTime;
-
             UpdateHealthMultiplier();
 
             if (UIManager.Instance != null)
@@ -50,20 +52,43 @@ public class GameManager : MonoBehaviour
         if (!IsGameOver) KillCount++;
     }
 
+    // 재화(공훈) 관리 시스템
+    public void AddMerit(int amount)
+    {
+        if (!IsGameOver)
+        {
+            CurrentMerit += amount;
+            UIManager.Instance.UpdateMeritUI(CurrentMerit);
+        }
+    }
+
+    public bool TrySpendMerit(int amount)
+    {
+        if (CurrentMerit >= amount)
+        {
+            CurrentMerit -= amount;
+            if (UIManager.Instance != null)
+            {
+                UIManager.Instance.UpdateMeritUI(CurrentMerit);
+            }
+
+            return true;
+        }
+        return false;
+    }
+
     public void GameOver()
     {
         IsGameOver = true;
         Time.timeScale = 0f;
 
         bool isNewRecord = false;
-
-        // 게임 오버 시 최고 기록 갱신 체크 및 저장
         if (SurvivalTime > BestSurvuvedTime)
         {
             BestSurvuvedTime = SurvivalTime;
             PlayerPrefs.SetFloat("BestSurvivalTime", BestSurvuvedTime);
             PlayerPrefs.Save();
-            isNewRecord = true; // 신기록 달성 여부 체크
+            isNewRecord = true;
         }
 
         if (UIManager.Instance != null)

@@ -2,13 +2,17 @@ using UnityEngine;
 
 public class AttackRateBuff : Buff
 {
-    private float _buffamount = 0.05f;
+    [SerializeField]
+    private float _buffAmount = 0.05f;
+
+    [SerializeField]
+    private float _duration = 10f;
+
     public override void ApplyBuff(GameObject player)
     {
-        PlayerFire playerFire = player.GetComponent<PlayerFire>();
-        if (playerFire != null)
+        if (PlayerStatus.Instance != null)
         {
-            playerFire.FireRateBuff(_buffamount); // 발사 속도 증가
+            PlayerStatus.Instance.ApplyTempFireRateBuff(_buffAmount, _duration);
         }
     }
 }

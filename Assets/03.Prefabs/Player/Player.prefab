@@ -279,6 +279,7 @@ GameObject:
   - component: {fileID: 7846717090031636985}
   - component: {fileID: 6879233413467461051}
   - component: {fileID: 1359684129025830360}
+  - component: {fileID: 2323546956405275768}
   - component: {fileID: 2949323666409884546}
   - component: {fileID: 9130849786989614434}
   - component: {fileID: 669359403942996983}
@@ -385,8 +386,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84a7eec44fec6014b9cc4c781b3c3cfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAutoMove
-  _speed: 2
-  _stopTrackingY: 2
+  _stopTrackingY: 3
+  _findTargetCooldown: 0.25
+  _evadeDistance: 3
 --- !u!114 &1359684129025830360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -404,6 +406,22 @@ MonoBehaviour:
   _deathSounds:
   - {fileID: 8300000, guid: 019c3f3a927933447a253b6d36d9ca72, type: 3}
   - {fileID: 8300000, guid: 57a2d5c823e3a4c4c8ef105624d0fad7, type: 3}
+--- !u!114 &2323546956405275768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5194570234576377915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0c0ddf7159fafb4383d978334ad23b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerStatus
+  IsAutoMode: 0
+  BonusDamage: 0
+  FireRate: 0.5
+  MoveSpeed: 5
 --- !u!114 &2949323666409884546
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -411,7 +429,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5194570234576377915}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a5ce84b631bb13742905bf94263f4736, type: 3}
   m_Name: 
@@ -433,8 +451,6 @@ MonoBehaviour:
   SubFirePointL: {fileID: 2645263096431876860}
   FirePointR: {fileID: 8293476970839588792}
   SubFirePointR: {fileID: 455721520944269378}
-  BulletPrefab: {fileID: 3591588799779360881, guid: 4b9fa77157836bd48b804b6552b0d5b7, type: 3}
-  SubBulletPrefab: {fileID: 3591588799779360881, guid: 23241892a7ecfbe46bd7a96a39df1ba9, type: 3}
 --- !u!114 &669359403942996983
 MonoBehaviour:
   m_ObjectHideFlags: 0

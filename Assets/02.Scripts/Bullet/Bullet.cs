@@ -9,7 +9,7 @@ public class Bullet : MonoBehaviour
     AudioSource _audioSource;
 
     [SerializeField]
-    private float _destroyPosY = 10f; // 총알이 회수될 화면 최상단 Y 좌표
+    private float _destroyPosY = 10f;
 
     private void Awake()
     {
@@ -21,7 +21,6 @@ public class Bullet : MonoBehaviour
         Vector2 direction = Vector2.up;
         transform.position += (Vector3)direction * BulletSpeed * Time.deltaTime;
 
-        // 화면 밖으로 날아간 총알 회수
         if (transform.position.y >= _destroyPosY)
         {
             ReturnToPool();
@@ -46,14 +45,17 @@ public class Bullet : MonoBehaviour
     {
         if (other.gameObject.TryGetComponent(out EnemyHealth enemyHealth))
         {
-            enemyHealth.TakeDamage(BulletDamage);
+            float finalDamage = BulletDamage;
+            if (PlayerStatus.Instance != null)
+            {
+                finalDamage += PlayerStatus.Instance.FinalBonusDamage;
+            }
 
-            // 적을 맞춘 총알 회수
+            enemyHealth.TakeDamage(finalDamage);
             ReturnToPool();
         }
     }
 
-    // 통합 매니저로 반환
     private void ReturnToPool()
     {
         string poolTag = gameObject.name.Replace("(Clone)", "").Trim();

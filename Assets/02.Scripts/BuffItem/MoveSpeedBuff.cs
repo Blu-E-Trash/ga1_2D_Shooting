@@ -2,13 +2,17 @@ using UnityEngine;
 
 public class MoveSpeedBuff : Buff
 {
-    private float _speed = 0.5f;
-    override public void ApplyBuff(GameObject player)
+    [SerializeField]
+    private float _buffAmount = 0.5f;
+
+    [SerializeField]
+    private float _duration = 10f;
+
+    public override void ApplyBuff(GameObject player)
     {
-        PlayerMove playermove = player.GetComponent<PlayerMove>();
-        if (playermove != null)
+        if (PlayerStatus.Instance != null)
         {
-            playermove.SpeedBuff(_speed);
+            PlayerStatus.Instance.ApplyTempMoveSpeedBuff(_buffAmount, _duration);
         }
     }
 }

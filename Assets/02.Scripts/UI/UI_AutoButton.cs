@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.EventSystems; // 터치 이벤트를 사용하기 위해 추가
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class UI_AutoButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
@@ -16,36 +16,35 @@ public class UI_AutoButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
 
     private Vector3 _originalScale;
 
-    private bool _autoOn = false;
-    private GameObject _player;
-    private PlayerFire _playerFire;
-
     private void Start()
     {
-        _player = GameObject.FindGameObjectWithTag("Player");
-
-        if (_player != null)
-        {
-            _playerFire = _player.GetComponent<PlayerFire>();
-        }
         InitImage();
-
         _originalScale = transform.localScale;
+    }
+
+    private void Update()
+    {
+        // 단축키 '1'을 누르면 오토 모드 토글
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            ToggleAuto();
+        }
     }
 
     private void InitImage()
     {
-        _autoImage.sprite = _autoOn ? _image[1] : _image[0];
+        if (PlayerStatus.Instance != null)
+        {
+            _autoImage.sprite = PlayerStatus.Instance.IsAutoMode ? _image[1] : _image[0];
+        }
     }
 
     public void ToggleAuto()
     {
-        _autoOn = !_autoOn;
-        InitImage();
-
-        if (_playerFire != null)
+        if (PlayerStatus.Instance != null)
         {
-            _playerFire.SetAuto(_autoOn);
+            PlayerStatus.Instance.ToggleAutoMode();
+            InitImage();
         }
     }
 

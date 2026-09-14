@@ -7,6 +7,9 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] private float _health = 100f;
     private float _maxHealth;
 
+    [Header("Reward Settings")]
+    [SerializeField] private int _meritReward = 5; // 적 처치 시 획득할 공훈 수치
+
     private Animator _animator;
     private static readonly int IsHitHash = Animator.StringToHash("isHit");
 
@@ -18,28 +21,33 @@ public class EnemyHealth : MonoBehaviour
     private AudioSource _audioSource;
     private EnemyLoot _enemyLoot;
 
+    // 💡 핵심: 중복 사망 처리를 막기 위한 상태 플래그
+    private bool _isDead = false;
+
     private void Awake()
     {
         _animator = GetComponent<Animator>();
         _audioSource = GetComponent<AudioSource>();
         _enemyLoot = GetComponent<EnemyLoot>();
-        _maxHealth = _health; // 초기 인스펙터에 설정된 기본 체력 기억
+        _maxHealth = _health;
     }
 
-    // 다시 활성화될 때마다 체력을 리셋합니다.
     private void OnEnable()
     {
         _health = _maxHealth;
+        _isDead = false; // 풀링에서 꺼내 재사용될 때 다시 살아나도록 초기화
     }
 
     public void ApplyHealthMultiplier(float multiplier)
     {
-        // Spawner에서 스폰 직후 호출되므로 배율에 맞춰 현재 체력이 세팅됩니다.
         _health = _maxHealth * multiplier;
     }
 
     public void TakeDamage(float damage)
     {
+        // 이미 죽은 상태라면 추가 타격 무시 (중복 실행 방지)
+        if (_isDead) return;
+
         _animator?.SetTrigger(IsHitHash);
         _health -= damage;
 
@@ -52,17 +60,24 @@ public class EnemyHealth : MonoBehaviour
         }
         else
         {
-            if (GameManager.Instance != null)
-            {
-                GameManager.Instance.AddKillCount();
-            }
-
             Die(true);
         }
     }
 
     public void Die(bool shouldDropItem = true)
     {
+        if (_isDead) return;
+        _isDead = true;
+
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.AddKillCount();
+            if (shouldDropItem)
+            {
+                GameManager.Instance.AddMerit(_meritReward);
+            }
+        }
+
         if (_hitSound != null)
         {
             AudioSource.PlayClipAtPoint(_hitSound, transform.position);
@@ -83,7 +98,6 @@ public class EnemyHealth : MonoBehaviour
             if (BossManager.Instance != null) BossManager.Instance.EndBossWave();
         }
 
-        // ObjectManager로 반환
         string poolTag = gameObject.name.Replace("(Clone)", "").Trim();
 
         if (ObjectManager.Instance != null)
@@ -92,7 +106,7 @@ public class EnemyHealth : MonoBehaviour
         }
         else
         {
-            gameObject.SetActive(false); // 매니저가 없을 때를 대비한 방어 코드
+            gameObject.SetActive(false);
         }
     }
 }

@@ -3,57 +3,83 @@ using UnityEngine;
 public class PlayerAutoMove : MonoBehaviour
 {
     [SerializeField] private int _stopTrackingY = 2;
-    [SerializeField] private float _findTargetCooldown = 0.5f;
+    [SerializeField] private float _findTargetCooldown = 0.25f;
+    [SerializeField] private float _evadeDistance = 2f;
 
     private GameObject _target = null;
     private float _searchTimer = 0f;
-    private PlayerMove _playerMove;
+    private Animator _animator;
 
     private void Awake()
     {
-        _playerMove = GetComponent<PlayerMove>();
-        if (_playerMove == null)
-        {
-            return;
-        }
+        _animator = GetComponent<Animator>();
     }
 
     private void Update()
     {
-        if (_target == null || !_target.activeInHierarchy || _target.transform.position.y < -_stopTrackingY)
+        if (GameManager.Instance != null && GameManager.Instance.IsGameOver)
         {
-            _searchTimer += Time.deltaTime;
-            if (_searchTimer >= _findTargetCooldown)
-            {
-                FindNearestTarget();
-                _searchTimer = 0f;
-            }
+            _target = null;
+            if (_animator != null) _animator.SetInteger("x", 0);
+            return;
         }
-        else
+
+        if (PlayerStatus.Instance == null || !PlayerStatus.Instance.IsAutoMode)
         {
-            Move();
+            _target = null;
+            return;
         }
+
+        _searchTimer += Time.deltaTime;
+        if (_searchTimer >= _findTargetCooldown)
+        {
+            FindNearestTarget();
+            _searchTimer = 0f;
+        }
+
+        Move();
     }
 
     private void Move()
     {
-        if (_target == null || !_target.activeInHierarchy) return;
+        if (_target == null || !_target.activeInHierarchy)
+        {
+            if (_animator != null) _animator.SetInteger("x", 0);
+            return;
+        }
 
+        float distanceToTarget = Vector2.Distance(transform.position, _target.transform.position);
         Vector3 diff = _target.transform.position - transform.position;
         Vector3 direction;
 
-        if (diff.y >= 3f)
-        {
-            direction = diff.normalized;
-        }
-        else
+        if (distanceToTarget <= _evadeDistance)
         {
             direction = new Vector3(diff.x, -1f, 0).normalized;
         }
+        else
+        {
+            direction = diff.normalized;
+        }
 
-        // PlayerMove의 Speed 값을 가져와서 이동에 반영
-        float currentSpeed = _playerMove != null ? _playerMove.Speed : 5f;
+        if (_animator != null)
+        {
+            if (direction.x > 0.1f) _animator.SetInteger("x", 1);
+            else if (direction.x < -0.1f) _animator.SetInteger("x", -1);
+            else _animator.SetInteger("x", 0);
+        }
+
+        float currentSpeed = PlayerStatus.Instance != null ? PlayerStatus.Instance.FinalMoveSpeed : 5f;
         transform.position += direction * currentSpeed * Time.deltaTime;
+
+        float minPosX = -2.3f;
+        float maxPosX = 2.3f;
+        float minPosY = -4.68f;
+        float maxPosY = 0f;
+
+        if (transform.position.x < minPosX) transform.position = new Vector2(maxPosX, transform.position.y);
+        if (transform.position.x > maxPosX) transform.position = new Vector2(minPosX, transform.position.y);
+        if (transform.position.y < minPosY) transform.position = new Vector2(transform.position.x, minPosY);
+        if (transform.position.y > maxPosY) transform.position = new Vector2(transform.position.x, maxPosY);
     }
 
     private void FindNearestTarget()
@@ -65,21 +91,22 @@ public class PlayerAutoMove : MonoBehaviour
             return;
         }
 
-        _target = null;
+        GameObject closestEnemy = null;
         float minDistance = float.MaxValue;
 
         foreach (GameObject enemy in targets)
         {
             if (!enemy.activeInHierarchy) continue;
-
             if (enemy.transform.position.y < -_stopTrackingY) continue;
 
             float distance = Vector2.Distance(transform.position, enemy.transform.position);
             if (distance < minDistance)
             {
                 minDistance = distance;
-                _target = enemy;
+                closestEnemy = enemy;
             }
         }
+
+        _target = closestEnemy;
     }
 }
