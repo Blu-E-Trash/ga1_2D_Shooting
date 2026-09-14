@@ -22,31 +22,12 @@ public class UI_AutoButton : MonoBehaviour
     }
     private void InitImage()
     {
-        if (_autoOn)
-        {
-            _autoImage.sprite = _image[1];
-        }
-        else
-        {
-            _autoImage.sprite = _image[0];
-        }
-
+        _autoImage.sprite = _autoOn ? _image[1] : _image[0];
     }
     public void ToggleAuto()
     {
         _autoOn = !_autoOn;
-        ChangeImage();
+        InitImage();
         _playerFire.SetAuto(_autoOn);
-    }
-    private void ChangeImage()
-    {
-        if (_autoOn)
-        {
-            _autoImage.sprite = _image[1];
-        }
-        else
-        {
-            _autoImage.sprite = _image[0];
-        }
     }
 }
