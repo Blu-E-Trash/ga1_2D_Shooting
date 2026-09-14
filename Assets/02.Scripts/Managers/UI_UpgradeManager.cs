@@ -52,8 +52,6 @@ public class UI_UpgradeManager : MonoBehaviour
         // 생존 시간 대신 현재 공훈(CurrentMerit)이 충분한지 검사합니다.
         if (GameManager.Instance != null && GameManager.Instance.TrySpendMerit(cost))
         {
-            GameManager.Instance.CurrentMerit -= cost; // 공훈 차감
-
             if (PlayerStatus.Instance != null)
                 PlayerStatus.Instance.UpgradeDamage(_damagePerLevel);
 
@@ -84,8 +82,6 @@ public class UI_UpgradeManager : MonoBehaviour
 
         if (GameManager.Instance != null && GameManager.Instance.TrySpendMerit(cost))
         {
-            GameManager.Instance.CurrentMerit -= cost;
-
             if (PlayerStatus.Instance != null)
                 PlayerStatus.Instance.UpgradeFireRate(_fireRatePerLevel);
 
@@ -112,8 +108,6 @@ public class UI_UpgradeManager : MonoBehaviour
 
         if (GameManager.Instance != null && GameManager.Instance.TrySpendMerit(cost))
         {
-            GameManager.Instance.CurrentMerit -= cost;
-
             if (PlayerStatus.Instance != null)
                 PlayerStatus.Instance.UpgradeMoveSpeed(_moveSpeedPerLevel);
 
