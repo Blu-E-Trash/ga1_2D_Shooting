@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Game State")]
     public float SurvivalTime = 0f;
-    public float BestSurvuvedTime = 0f;
+    public float BestSurvuvedTime = 0f; // 기존 오타 유지
     public int KillCount = 0;
 
     [Header("Currency / Merit")]
@@ -19,6 +19,10 @@ public class GameManager : MonoBehaviour
     public bool IsBossWave = false;
     public bool IsWarning = false;
 
+    // 💡 보스전 페널티용 타이머 변수 추가
+    private float _bossPenaltyTimer = 0f;
+    private float _bossPenaltyInterval = 2f;
+
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -29,7 +33,9 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (!IsGameOver && !IsBossWave && !IsWarning)
+        if (IsGameOver) return;
+
+        if (!IsBossWave && !IsWarning)
         {
             SurvivalTime += Time.deltaTime;
             UpdateHealthMultiplier();
@@ -37,6 +43,28 @@ public class GameManager : MonoBehaviour
             if (UIManager.Instance != null)
             {
                 UIManager.Instance.UpdateTimerUI(SurvivalTime);
+            }
+
+            _bossPenaltyTimer = 0f;
+        }
+        else if (IsBossWave)
+        {
+            _bossPenaltyTimer += Time.deltaTime;
+
+            if (_bossPenaltyTimer >= _bossPenaltyInterval)
+            {
+                _bossPenaltyTimer -= _bossPenaltyInterval;
+
+                if (CurrentMerit > 0)
+                {
+                    CurrentMerit--;
+
+                    if (UIManager.Instance != null)
+                    {
+                        UIManager.Instance.UpdateMeritUI(CurrentMerit);
+                        UIManager.Instance.FlashMeritText();
+                    }
+                }
             }
         }
     }
@@ -52,13 +80,12 @@ public class GameManager : MonoBehaviour
         if (!IsGameOver) KillCount++;
     }
 
-    // 재화(공훈) 관리 시스템
     public void AddMerit(int amount)
     {
         if (!IsGameOver)
         {
             CurrentMerit += amount;
-            UIManager.Instance.UpdateMeritUI(CurrentMerit);
+            if (UIManager.Instance != null) UIManager.Instance.UpdateMeritUI(CurrentMerit);
         }
     }
 
@@ -67,11 +94,7 @@ public class GameManager : MonoBehaviour
         if (CurrentMerit >= amount)
         {
             CurrentMerit -= amount;
-            if (UIManager.Instance != null)
-            {
-                UIManager.Instance.UpdateMeritUI(CurrentMerit);
-            }
-
+            if (UIManager.Instance != null) UIManager.Instance.UpdateMeritUI(CurrentMerit);
             return true;
         }
         return false;

@@ -131,4 +131,20 @@ public class UIManager : MonoBehaviour
             NewRecordText.gameObject.SetActive(true);
         }
     }
+    public void FlashMeritText()
+    {
+        if (MeritText != null && gameObject.activeInHierarchy)
+        {
+            StartCoroutine(FlashMeritRoutine());
+        }
+    }
+
+    private IEnumerator FlashMeritRoutine()
+    {
+        MeritText.color = Color.red;
+
+        yield return new WaitForSeconds(0.2f);
+
+        MeritText.color = Color.white;
+    }
 }
