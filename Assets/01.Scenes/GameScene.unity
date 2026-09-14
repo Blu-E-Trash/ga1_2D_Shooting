@@ -2299,6 +2299,8 @@ MonoBehaviour:
   _image:
   - {fileID: -1196866263293263332, guid: d3dd517d0b9bc8a4ba407dd61a8d5989, type: 3}
   - {fileID: 2585730359333395145, guid: c7a5b0ac30f3c414ba2bd05aea2f8394, type: 3}
+  _clickSound: {fileID: 8300000, guid: d6f28c08055d2da49bf31c908674453c, type: 3}
+  _pressedScale: 0.9
 --- !u!222 &1349446953
 CanvasRenderer:
   m_ObjectHideFlags: 0
