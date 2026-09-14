@@ -11,6 +11,11 @@ public class BossEnemy : Enemy
     private bool _isIntroFinished = false;
     [SerializeField] private float _startX;
 
+    private void OnEnable()
+    {
+        _isIntroFinished = false;
+    }
+
     protected override void Move()
     {
         if (!_isIntroFinished)

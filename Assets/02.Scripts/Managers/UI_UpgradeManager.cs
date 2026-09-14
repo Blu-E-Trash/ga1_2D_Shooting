@@ -92,6 +92,13 @@ public class UI_UpgradeManager : MonoBehaviour
 
     private void UpdateAttackSpeedUI()
     {
+        if (_attackSpeedUpgrade.level >= 21)
+        {
+            _attackSpeedUpgrade.nameText.text = "공격속도 Lv.Max";
+            _attackSpeedUpgrade.valueText.text = "현재 공격속도: 0.1";
+            _attackSpeedUpgrade.costText.text = "최대 레벨입니다.";
+            return;
+        }
         float currentBonus = (_attackSpeedUpgrade.level - 1) * _fireRatePerLevel;
         float nextBonus = currentBonus + _fireRatePerLevel;
         int cost = GetCurrentCost(_attackSpeedUpgrade.level);

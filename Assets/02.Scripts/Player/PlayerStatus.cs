@@ -10,6 +10,7 @@ public class PlayerStatus : MonoBehaviour
 
     [Header("Permanent Upgrades (영구 스탯)")]
     private float _bonusDamage = 0f;
+    [SerializeField]
     private float _baseFireRate = 0.5f;
     private float _baseMoveSpeed = 5f;
 
