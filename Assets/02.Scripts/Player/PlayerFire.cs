@@ -64,4 +64,8 @@ public class PlayerFire : MonoBehaviour
         }
         Debug.Log($"현재 공격속도 간격: {_fireRate}");
     }
+    public void SetAuto(bool auto)
+    {
+        _isAutoFire = auto;
+    }
 }
