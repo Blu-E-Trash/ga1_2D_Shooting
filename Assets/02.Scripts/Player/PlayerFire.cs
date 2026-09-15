@@ -8,6 +8,7 @@ public class PlayerFire : MonoBehaviour
     public Transform SubFirePointR;
 
     private float _nextFireTime = 0f;
+    private bool _isFireButtonPressed = false;
 
     public float NextFireTime => _nextFireTime;
 
@@ -32,7 +33,7 @@ public class PlayerFire : MonoBehaviour
         }
         else
         {
-            if (Input.GetKey(KeyCode.Space))
+            if (Input.GetKey(KeyCode.Space) || _isFireButtonPressed)
             {
                 if (Time.time >= _nextFireTime)
                 {
@@ -56,5 +57,15 @@ public class PlayerFire : MonoBehaviour
 
         GameObject subRightBullet = ObjectManager.Instance.SpawnFromPool("SubBullet", SubFirePointR.position, Quaternion.identity);
         if (subRightBullet != null) subRightBullet.GetComponent<Bullet>()?.OnSpawn();
+    }
+
+    public void OnFireButtonDown()
+    {
+        _isFireButtonPressed = true;
+    }
+
+    public void OnFireButtonUp()
+    {
+        _isFireButtonPressed = false;
     }
 }

@@ -175,6 +175,7 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.DeleteKey("Run.SurvivalTime");
         PlayerPrefs.DeleteKey("Run.CurrentMerit");
         PlayerPrefs.DeleteKey("Run.KillCount");
+        PlayerPrefs.DeleteKey("UpgradeData");
         PlayerPrefs.SetInt("Run.HasSave", 0); // 저장 데이터 없음 처리
 
         PlayerPrefs.Save();
