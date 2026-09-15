@@ -179,4 +179,13 @@ public class GameManager : MonoBehaviour
 
         PlayerPrefs.Save();
     }
+
+    private void OnApplicationQuit()
+    {
+        // 죽지 않고 살아있을 때만 진행 상황을 저장합니다.
+        if (!IsGameOver)
+        {
+            SaveInGameData();
+        }
+    }
 }
