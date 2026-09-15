@@ -23,7 +23,7 @@ public class PlayerSkill : MonoBehaviour
             return;
         }
 
-        if (Input.GetKeyDown(KeyCode.B))
+        if (SimpleInput.GetKeyDown(KeyCode.B))
         {
             UseSkill();
         }
