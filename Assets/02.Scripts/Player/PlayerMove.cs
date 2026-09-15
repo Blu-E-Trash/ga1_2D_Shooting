@@ -32,8 +32,8 @@ public class PlayerMove : MonoBehaviour
 
     private void Move()
     {
-        float h = Input.GetAxisRaw("Horizontal");
-        float v = Input.GetAxisRaw("Vertical");
+        float h = SimpleInput.GetAxisRaw("Horizontal");
+        float v = SimpleInput.GetAxisRaw("Vertical");
 
         if (_animator != null)
         {
@@ -51,14 +51,5 @@ public class PlayerMove : MonoBehaviour
         if (transform.position.x > _maxPosX) transform.position = new Vector2(_minPosX, transform.position.y);
         if (transform.position.y < _minPosY) transform.position = new Vector2(transform.position.x, _minPosY);
         if (transform.position.y > _maxPosY) transform.position = new Vector2(transform.position.x, _maxPosY);
-    }
-
-    private void Save()
-    {
-
-    }
-    private void Load()
-    {
-
     }
 }
