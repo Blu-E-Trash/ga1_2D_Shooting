@@ -52,4 +52,13 @@ public class PlayerMove : MonoBehaviour
         if (transform.position.y < _minPosY) transform.position = new Vector2(transform.position.x, _minPosY);
         if (transform.position.y > _maxPosY) transform.position = new Vector2(transform.position.x, _maxPosY);
     }
+
+    private void Save()
+    {
+
+    }
+    private void Load()
+    {
+
+    }
 }

@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Game State")]
     public float SurvivalTime = 0f;
-    public float BestSurvuvedTime = 0f; // 기존 오타 유지
+    public float BestSurvivedTime = 0f;
     public int KillCount = 0;
 
     [Header("Currency / Merit")]
@@ -19,18 +19,27 @@ public class GameManager : MonoBehaviour
     public bool IsBossWave = false;
     public bool IsWarning = false;
 
-    // 💡 보스전 페널티용 타이머 변수 추가
+    // 보스전 페널티용 타이머 변수 추가
     private float _bossPenaltyTimer = 0f;
     private float _bossPenaltyInterval = 2f;
-
     private void Awake()
     {
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
 
-        BestSurvuvedTime = PlayerPrefs.GetFloat("BestSurvivalTime", 0f);
+        BestSurvivedTime = PlayerPrefs.GetFloat("BestSurvivalTime", 0f);
+
+        LoadInGameData();
     }
 
+    private void Start()
+    {
+        if (UIManager.Instance != null)
+        {
+            UIManager.Instance.UpdateMeritUI(CurrentMerit);
+            UIManager.Instance.UpdateTimerUI(SurvivalTime);
+        }
+    }
     private void Update()
     {
         if (IsGameOver) return;
@@ -105,18 +114,20 @@ public class GameManager : MonoBehaviour
         IsGameOver = true;
         Time.timeScale = 0f;
 
+        ClearInGameData();
+
         bool isNewRecord = false;
-        if (SurvivalTime > BestSurvuvedTime)
+        if (SurvivalTime > BestSurvivedTime)
         {
-            BestSurvuvedTime = SurvivalTime;
-            PlayerPrefs.SetFloat("BestSurvivalTime", BestSurvuvedTime);
+            BestSurvivedTime = SurvivalTime;
+            PlayerPrefs.SetFloat("BestSurvivalTime", BestSurvivedTime);
             PlayerPrefs.Save();
             isNewRecord = true;
         }
 
         if (UIManager.Instance != null)
         {
-            UIManager.Instance.ShowGameOver(SurvivalTime, KillCount, BestSurvuvedTime, isNewRecord);
+            UIManager.Instance.ShowGameOver(SurvivalTime, KillCount, BestSurvivedTime, isNewRecord);
         }
     }
 
@@ -130,5 +141,42 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("게임 종료");
         Application.Quit();
+    }
+
+    public void SaveInGameData()
+    {
+        PlayerPrefs.SetFloat("Run.SurvivalTime", SurvivalTime);
+        PlayerPrefs.SetInt("Run.CurrentMerit", CurrentMerit);
+        PlayerPrefs.SetInt("Run.KillCount", KillCount);
+
+        PlayerPrefs.SetInt("Run.HasSave", 1);
+
+        PlayerPrefs.Save();
+    }
+
+    public void LoadInGameData()
+    {
+        if (PlayerPrefs.GetInt("Run.HasSave", 0) == 1)
+        {
+            SurvivalTime = PlayerPrefs.GetFloat("Run.SurvivalTime", 0f);
+            CurrentMerit = PlayerPrefs.GetInt("Run.CurrentMerit", 0);
+            KillCount = PlayerPrefs.GetInt("Run.KillCount", 0);
+        }
+        else
+        {
+            SurvivalTime = 0f;
+            CurrentMerit = 0;
+            KillCount = 0;
+        }
+    }
+
+    public void ClearInGameData()
+    {
+        PlayerPrefs.DeleteKey("Run.SurvivalTime");
+        PlayerPrefs.DeleteKey("Run.CurrentMerit");
+        PlayerPrefs.DeleteKey("Run.KillCount");
+        PlayerPrefs.SetInt("Run.HasSave", 0); // 저장 데이터 없음 처리
+
+        PlayerPrefs.Save();
     }
 }

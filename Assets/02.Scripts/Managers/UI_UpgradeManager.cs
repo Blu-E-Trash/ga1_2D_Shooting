@@ -1,6 +1,24 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+[System.Serializable]
+public class UI_UpgradeElement
+{
+    public string Name;
+
+    public Button upgradeButton;
+    public Text nameText;
+    public Text valueText;
+    public Text costText;
+
+    [HideInInspector] public int level = 1;
+
+    public void SetLevel(int newLevel)
+    {
+        level = newLevel;
+    }
+}
+
 public class UI_UpgradeManager : MonoBehaviour
 {
     [System.Serializable]
@@ -28,8 +46,12 @@ public class UI_UpgradeManager : MonoBehaviour
     [SerializeField] private int _baseCost = 5;
     [SerializeField] private int _costIncreasePerLevel = 5;
 
+    private const string SAVE_KEY = "UpgradeData";
+
     private void Start()
     {
+        Load();
+
         if (_damageUpgrade.upgradeButton != null)
             _damageUpgrade.upgradeButton.onClick.AddListener(OnClickDamageUpgrade);
 
@@ -49,7 +71,6 @@ public class UI_UpgradeManager : MonoBehaviour
     {
         int cost = GetCurrentCost(_damageUpgrade.level);
 
-        // 생존 시간 대신 현재 공훈(CurrentMerit)이 충분한지 검사합니다.
         if (GameManager.Instance != null && GameManager.Instance.TrySpendMerit(cost))
         {
             if (PlayerStatus.Instance != null)
@@ -57,6 +78,8 @@ public class UI_UpgradeManager : MonoBehaviour
 
             _damageUpgrade.level++;
             UpdateDamageUI();
+
+            Save();
         }
         else
         {
@@ -87,6 +110,8 @@ public class UI_UpgradeManager : MonoBehaviour
 
             _attackSpeedUpgrade.level++;
             UpdateAttackSpeedUI();
+
+            Save();
         }
     }
 
@@ -99,6 +124,7 @@ public class UI_UpgradeManager : MonoBehaviour
             _attackSpeedUpgrade.costText.text = "최대 레벨입니다.";
             return;
         }
+
         float currentBonus = (_attackSpeedUpgrade.level - 1) * _fireRatePerLevel;
         float nextBonus = currentBonus + _fireRatePerLevel;
         int cost = GetCurrentCost(_attackSpeedUpgrade.level);
@@ -120,6 +146,8 @@ public class UI_UpgradeManager : MonoBehaviour
 
             _moveSpeedUpgrade.level++;
             UpdateMoveSpeedUI();
+
+            Save();
         }
     }
 
@@ -138,5 +166,56 @@ public class UI_UpgradeManager : MonoBehaviour
     private int GetCurrentCost(int level)
     {
         return _baseCost + (level - 1) * _costIncreasePerLevel;
+    }
+
+    // 데이터 저장 및 불러오기 (JSON 방식)
+    private void Save()
+    {
+        UpgradeSaveData data = new UpgradeSaveData(3);
+
+        data.Name[0] = "Damage";
+        data.Level[0] = _damageUpgrade.level;
+
+        data.Name[1] = "AttackSpeed";
+        data.Level[1] = _attackSpeedUpgrade.level;
+
+        data.Name[2] = "MoveSpeed";
+        data.Level[2] = _moveSpeedUpgrade.level;
+
+        string jsonData = JsonUtility.ToJson(data);
+        PlayerPrefs.SetString(SAVE_KEY, jsonData);
+        PlayerPrefs.Save();
+    }
+
+    private void Load()
+    {
+        string jsonData = PlayerPrefs.GetString(SAVE_KEY, "");
+
+        if (!string.IsNullOrEmpty(jsonData))
+        {
+            UpgradeSaveData data = JsonUtility.FromJson<UpgradeSaveData>(jsonData);
+
+            if (data != null && data.Name != null && data.Level != null)
+            {
+                for (int i = 0; i < data.Name.Length; i++)
+                {
+                    if (data.Name[i] == "Damage") _damageUpgrade.level = data.Level[i];
+                    else if (data.Name[i] == "AttackSpeed") _attackSpeedUpgrade.level = data.Level[i];
+                    else if (data.Name[i] == "MoveSpeed") _moveSpeedUpgrade.level = data.Level[i];
+                }
+            }
+        }
+
+        if (PlayerStatus.Instance != null)
+        {
+            if (_damageUpgrade.level > 1)
+                PlayerStatus.Instance.UpgradeDamage(_damagePerLevel * (_damageUpgrade.level - 1));
+
+            if (_attackSpeedUpgrade.level > 1)
+                PlayerStatus.Instance.UpgradeFireRate(_fireRatePerLevel * (_attackSpeedUpgrade.level - 1));
+
+            if (_moveSpeedUpgrade.level > 1)
+                PlayerStatus.Instance.UpgradeMoveSpeed(_moveSpeedPerLevel * (_moveSpeedUpgrade.level - 1));
+        }
     }
 }
